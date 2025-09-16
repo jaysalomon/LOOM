@@ -29,7 +29,7 @@ The core insight: biological neural networks and symbolic hypergraph structures 
 - **Biological Growth**: Hebbian learning, sleep consolidation, hormonal modulation
 - **Unified Architecture**: Designed for Apple Silicon and similar unified memory systems
 
-## 📚 Documentation
+## � Documentation
 
 - **[Wiki](./wiki)** - Getting started, guides, implementation status, and practical information
 - **[Theory (LaTeX)](loom_complete_documentation.tex)** - Complete mathematical foundations and formal specification
@@ -295,10 +295,10 @@ LOOM raises fundamental questions we're working to answer:
 - Can the Levi transform efficiently scale to large topologies?
 - How does unified memory architecture enable new computational paradigms?
 
-## 📖 Documentation
+## � Documentation
 
 - **[Theoretical Foundations](loom_complete_documentation.tex)**: Complete mathematical framework
-- **[GitHub Pages](https://loom-lang.github.io/loom)**: Project website
+- **[GitHub Pages](docs/)**: Local site content for Pages (enable Pages from /docs)
 - **[Wiki](wiki/)**: Extended documentation
 - **[Examples](examples/)**: LOOM program examples
 
@@ -332,7 +332,7 @@ LOOM builds on insights from:
 </p>
 
 <p align="center">
-  <a href="https://loom-lang.github.io/loom">Website</a> •
+    <a href="docs/">Website</a> •
   <a href="docs/">Documentation</a> •
   <a href="CONTRIBUTING.md">Contribute</a> •
   <a href="wiki/">Wiki</a>

@@ -43,7 +43,19 @@ static size_t _count_elems(const size_t* dims, int ndim) {
     return n;
 }
 
+// Public create: dispatch to backend implementations when available
 LoomTensor* loom_tensor_create(LoomDevice device, LoomDType dtype, const size_t* dims, int ndim) {
+#if defined(LOOM_USE_METAL)
+    if (device == LOOM_DEVICE_METAL) {
+        return loom_tensor_create_metal(device, dtype, dims, ndim);
+    }
+#endif
+#if defined(LOOM_USE_CUDA)
+    if (device == LOOM_DEVICE_CUDA) {
+        return loom_tensor_create_cuda(device, dtype, dims, ndim);
+    }
+#endif
+    // Fallback to CPU implementation
     LoomTensor* t = (LoomTensor*)malloc(sizeof(LoomTensor));
     if (!t) return NULL;
     t->device = device;
@@ -52,32 +64,49 @@ LoomTensor* loom_tensor_create(LoomDevice device, LoomDType dtype, const size_t*
     t->elem_count = _count_elems(dims, ndim);
     for (int i = 0; i < ndim && i < 8; ++i) t->dims[i] = dims[i];
     t->stream = NULL;
-    if (device == LOOM_DEVICE_CPU) {
     size_t bytes = t->elem_count * sizeof(float);
     t->data = loom_aligned_alloc(64, bytes);
     if (!t->data) { free(t); return NULL; }
     memset(t->data, 0, bytes);
-    } else {
-        // Device not implemented: leave data NULL for now
-        t->data = NULL;
-    }
     return t;
 }
 
 void loom_tensor_free(LoomTensor* t) {
     if (!t) return;
+#if defined(LOOM_USE_METAL)
+    // Metal-backed tensors are freed by the Metal-specific function
+    // We need a way to detect if t is a Metal wrapper; for now, if device==METAL
+    // dispatch accordingly. If t originated from metal, its memory layout differs.
+    // Attempt to dispatch based on a best-effort check.
+    if (((LoomTensor*)t)->device == LOOM_DEVICE_METAL) { loom_tensor_free_metal(t); return; }
+#endif
+#if defined(LOOM_USE_CUDA)
+    if (((LoomTensor*)t)->device == LOOM_DEVICE_CUDA) { loom_tensor_free_cuda(t); return; }
+#endif
     if (t->data) loom_aligned_free(t->data);
     free(t);
 }
 
 void* loom_tensor_data(LoomTensor* t) {
     if (!t) return NULL;
+#if defined(LOOM_USE_METAL)
+    if (t->device == LOOM_DEVICE_METAL) return loom_tensor_data_metal(t);
+#endif
+#if defined(LOOM_USE_CUDA)
+    if (t->device == LOOM_DEVICE_CUDA) return NULL; // device-only for now
+#endif
     return t->data;
 }
 
 void loom_tensor_sync(LoomTensor* t) {
-    // CPU: nothing to do. Device backends should implement synchronization.
-    (void)t;
+    if (!t) return;
+#if defined(LOOM_USE_METAL)
+    if (t->device == LOOM_DEVICE_METAL) { loom_tensor_sync_metal(t); return; }
+#endif
+#if defined(LOOM_USE_CUDA)
+    if (t->device == LOOM_DEVICE_CUDA) { /* TODO: cuda sync */ return; }
+#endif
+    // CPU: nothing to do
 }
 
 void loom_tensor_fill(LoomTensor* t, double value) {
