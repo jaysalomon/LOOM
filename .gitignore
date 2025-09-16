@@ -1,15 +1,59 @@
-/loom_complete_framework.md
-/loom-master-spec.md
-/loom_register_architecture.md
-/src
-/examples
-/BUILD_AND_RUN.md
-/Kernelidea.md
-/loom_mathematics.md
-/loom_complete_documentation.tex
-/.claude
-/loom_complete_documentation.log
-/loom_complete_documentation.aux
-/loom_complete_documentation.out
-/loom_complete_documentation.pdf
-/loom_complete_documentation.toc
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Build artifacts
+target/
+*.o
+*.a
+*.so
+*.dll
+*.exe
+*.pdb
+
+# LaTeX build files
+*.aux
+*.log
+*.out
+*.toc
+*.pdf
+*.synctex.gz
+*.fls
+*.fdb_latexmk
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+dist/
+build/
+
+# Rust
+Cargo.lock
+debug/
+release/
+
+# Temporary files
+*.tmp
+*.bak
+*.backup
+.cache/
+
+# OS files
+Thumbs.db
+desktop.ini
+
+# Claude-specific
+.claude/
+
+# Keep the deprecated docs hidden (for now)
+.deprecated_docs/
+
+# Local config
+*.local
+.env

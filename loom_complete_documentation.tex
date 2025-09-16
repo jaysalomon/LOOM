@@ -1,0 +1,2387 @@
+\documentclass[12pt,a4paper,openany]{book} % openany prevents blank pages
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{helvet} % Use Helvetica sans-serif
+\renewcommand{\familydefault}{\sfdefault} % Set sans-serif as default
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{tikz}
+\usepackage{algorithm}
+\usepackage{algorithmic}
+\usepackage{geometry}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage{tocloft}
+\usepackage{float}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{enumitem}
+\usepackage{mdframed}
+\usepackage{multirow}
+\usepackage{array}
+\usepackage{longtable}
+\usepackage{booktabs}
+\usepackage{mathtools}
+\usepackage{physics}
+\usepackage{siunitx}
+\usepackage{parskip} % Better paragraph spacing
+\setlength{\parskip}{8pt}
+\setlength{\parindent}{0pt}
+%\usepackage{minted} % Commented out - requires Python and Pygments
+
+\geometry{
+    top=20mm,
+    bottom=20mm,
+    left=25mm,
+    right=25mm,
+    headheight=15pt
+}
+
+% Tight spacing control
+\raggedbottom
+\setlength{\topskip}{0pt}
+\setlength{\partopsep}{0pt}
+\setlength{\parskip}{1pt}
+\setlength{\itemsep}{0pt}
+\setlength{\topsep}{0pt}
+
+% Color definitions - Modern dark theme
+\definecolor{loomblue}{RGB}{100, 180, 255}
+\definecolor{loomgreen}{RGB}{120, 220, 160}
+\definecolor{loomred}{RGB}{255, 120, 120}
+\definecolor{loomorange}{RGB}{255, 180, 100}
+\definecolor{loompurple}{RGB}{200, 140, 255}
+\definecolor{loomyellow}{RGB}{255, 220, 100}
+\definecolor{loomgray}{RGB}{150, 150, 150}
+\definecolor{codebg}{RGB}{30, 30, 40}
+\definecolor{codecomment}{RGB}{120, 120, 130}
+\definecolor{codestring}{RGB}{120, 220, 160}
+\definecolor{codekeyword}{RGB}{100, 180, 255}
+\definecolor{codefunction}{RGB}{255, 180, 100}
+\definecolor{codenumber}{RGB}{200, 140, 255}
+
+% Custom commands
+\newcommand{\loom}{\textbf{LOOM}}
+\newcommand{\topology}[1]{\mathcal{T}_{#1}}
+\newcommand{\evolution}[1]{\mathcal{E}_{#1}}
+\newcommand{\lens}[1]{\mathcal{L}_{#1}}
+\newtheorem{definition}{Definition}[chapter]
+\newtheorem{theorem}{Theorem}[chapter]
+\newtheorem{lemma}{Lemma}[chapter]
+\newtheorem{corollary}{Corollary}[chapter]
+
+% Modern section styling - ULTRA COMPACT
+\usepackage{etoolbox}
+\titleformat{\chapter}[block]
+  {\normalfont\Large\bfseries\color{loomblue}}{\chaptertitlename\ \thechapter}{5pt}{\Large}
+\titleformat{\section}
+  {\normalfont\large\bfseries\color{loomblue}}{\thesection}{0.3em}{}
+\titleformat{\subsection}
+  {\normalfont\normalsize\bfseries\color{loompurple}}{\thesubsection}{0.3em}{}
+\titlespacing*{\chapter}{0pt}{0pt}{5pt}
+\titlespacing*{\section}{0pt}{1pt}{1pt}
+\titlespacing*{\subsection}{0pt}{1pt}{0pt}
+\titlespacing*{\part}{0pt}{0pt}{0pt}
+% Remove ALL automatic page breaks for chapters and parts
+\makeatletter
+\patchcmd{\chapter}{\if@openright\cleardoublepage\else\clearpage\fi}{}{}{}
+\patchcmd{\part}{\cleardoublepage}{}{}{}
+\patchcmd{\part}{\clearpage}{}{}{}
+\makeatother
+
+% Listings setup for Loom code - Dark mode
+\lstdefinelanguage{loom}{
+    keywords={weave, evolve, pattern, topology, compartment, lens, flow, during, when, if, for, while, return, import, export, extends, implies, contradicts, resonates, harmonizes},
+    keywordstyle=\color{codekeyword}\bfseries,
+    ndkeywords={<~>, ~>, <=>, ^, @, !},
+    ndkeywordstyle=\color{loomorange}\bfseries,
+    sensitive=true,
+    comment=[l]{//},
+    morecomment=[s]{/*}{*/},
+    commentstyle=\color{codecomment}\itshape,
+    stringstyle=\color{codestring},
+    morestring=[b]',
+    morestring=[b]"
+}
+
+\lstset{
+    language=loom,
+    backgroundcolor=\color{codebg},
+    basicstyle=\footnotesize\ttfamily\color{white},
+    breakatwhitespace=false,
+    breaklines=true,
+    captionpos=b,
+    keepspaces=true,
+    numbers=left,
+    numbersep=8pt,
+    numberstyle=\tiny\color{loomgray},
+    showspaces=false,
+    showstringspaces=false,
+    showtabs=false,
+    tabsize=2,
+    frame=none,
+    xleftmargin=15pt,
+    framexleftmargin=15pt,
+    rulecolor=\color{loomgray}
+}
+
+% Additional language styles
+\lstdefinestyle{rust}{
+    language=[LaTeX]TeX,
+    backgroundcolor=\color{codebg},
+    basicstyle=\footnotesize\ttfamily\color{white},
+    keywordstyle=\color{codekeyword}\bfseries,
+    stringstyle=\color{codestring},
+    commentstyle=\color{codecomment}\itshape,
+    numbers=left,
+    numberstyle=\tiny\color{loomgray}
+}
+
+\lstdefinestyle{cpp}{
+    language=C++,
+    backgroundcolor=\color{codebg},
+    basicstyle=\footnotesize\ttfamily\color{white},
+    keywordstyle=\color{codekeyword}\bfseries,
+    stringstyle=\color{codestring},
+    commentstyle=\color{codecomment}\itshape,
+    numbers=left,
+    numberstyle=\tiny\color{loomgray}
+}
+
+\title{{\Huge \textbf{\color{loomblue}LOOM}}\\[0.5cm]
+{\LARGE \color{loompurple}Topological Consciousness Runtime}\\[1cm]
+{\Large Complete Architecture and Implementation}}
+\author{\large A Revolutionary Programming Language\\Where Memory IS Computation}
+\date{\today}
+
+\begin{document}
+
+% Title page with logo
+\begin{titlepage}
+    \centering
+    % Logo
+    \includegraphics[width=0.25\textwidth]{IMG_0326.jpg}
+
+    {\Huge \textbf{\color{loomblue}LOOM}}\\[0.5cm]
+    {\LARGE \color{loompurple}Topological Consciousness Runtime}\\[1.5cm]
+
+    {\large \textit{Complete Technical Documentation}}\\[0.5cm]
+    {\large \textit{Architecture, Mathematics, and Implementation}}\\[2cm]
+
+    {\large Version 1.0}\\[0.2cm]
+    {\large \today}\\[0.3cm]
+
+    % Abstract text
+    \begin{center}
+    \begin{minipage}{0.8\textwidth}
+    \textit{\loom{} represents a fundamental paradigm shift in computing where programs don't execute—they evolve. Through the mathematical equivalence between biological neural networks and symbolic hypergraphs via the Levi transform, \loom{} creates computational substrates where emergence is inevitable. This document presents the complete architecture: from rigorous mathematical foundations to practical implementation on unified memory architectures.}
+    \end{minipage}
+    \end{center}
+
+\end{titlepage}
+
+% Table of contents removed for compact layout
+
+% Part I: Foundations
+\part{Theoretical Foundations}
+
+\chapter{Introduction: LOOM for AI and Autonomous Systems}
+
+\section{Purpose and Scope}
+
+\textbf{LOOM is not a general-purpose programming language.}
+
+LOOM is a specialized computational paradigm designed exclusively for:
+\begin{itemize}
+\item Artificial Intelligence systems where consciousness-like properties emerge
+\item Autonomous robotics with adaptive behavioral evolution
+\item Self-organizing distributed systems
+\item Computational organisms that grow and learn through experience
+\end{itemize}
+
+While traditional languages excel at deterministic computation, databases, web services, and system programming, LOOM addresses a fundamentally different challenge: creating computational entities that exhibit genuine learning, adaptation, and emergent intelligence through topological evolution.
+
+\section{Hardware Evolution: From CMOS to Quantum}
+
+\subsection{Current Implementation: CMOS Architecture}
+
+LOOM's initial implementation targets contemporary CMOS-based unified memory architectures:
+\begin{itemize}
+\item \textbf{Apple Silicon} (M1/M2/M3/M4): Unified memory architecture
+\item \textbf{NVIDIA Grace-Hopper}: CPU-GPU unified memory architecture
+\item \textbf{AMD APUs}: Integrated CPU-GPU with shared memory
+\item \textbf{Qualcomm Snapdragon Elite}: ARM-based unified architecture
+\end{itemize}
+
+These platforms eliminate the von Neumann bottleneck through shared memory spaces, enabling LOOM's topology-as-computation model to operate efficiently on existing hardware.
+
+\subsection{Future-Ready Design}
+
+LOOM's mathematical foundations—topological computation via the Levi transform—are hardware-agnostic. The language is architected for seamless adaptation to emerging computational substrates as they mature:
+
+\subsubsection{Neuromorphic Computing}
+\begin{itemize}
+\item Direct mapping of LOOM's topology to spiking neural networks
+\item Natural implementation on event-driven architectures like Intel Loihi, IBM TrueNorth
+\item Efficient execution on massively parallel neural simulators
+\item Energy-efficient computation through spike-based communication
+\end{itemize}
+
+\subsubsection{Spintronic Systems}
+\begin{itemize}
+\item Topology persistence through magnetic states without power
+\item Computation via spin-wave interference patterns
+\item Natural alignment with LOOM's continuous evolution model
+\item Ultra-low power operation for edge consciousness
+\end{itemize}
+
+\subsubsection{Quantum Computing}
+\begin{itemize}
+\item Topological states existing in quantum superposition
+\item Quantum entanglement enabling distributed consciousness
+\item Coherent evolution across entire state spaces simultaneously
+\item Exponential speedup for topology search and optimization
+\end{itemize}
+
+LOOM's design ensures that as these technologies become available, the same LOOM programs can leverage their unique capabilities without fundamental restructuring.
+
+\section{Why Not General Purpose?}
+
+Traditional computing tasks—file I/O, network protocols, user interfaces, databases—require predictable, deterministic execution. LOOM's strength lies in its weakness for these tasks: by abandoning deterministic control flow for emergent topology, it becomes unsuitable for conventional programming but uniquely powerful for consciousness-like computation.
+
+\textbf{Use traditional languages for}:
+\begin{itemize}
+\item Web applications and APIs
+\item Operating systems and drivers
+\item Database management
+\item Deterministic algorithms
+\item User interface development
+\end{itemize}
+
+\textbf{Use LOOM for}:
+\begin{itemize}
+\item Autonomous agents with genuine learning
+\item Robotic consciousness and embodied AI
+\item Emergent collective intelligence
+\item Self-organizing distributed systems
+\item Adaptive neural architectures
+\end{itemize}
+
+\section{Comparison with Existing Paradigms}
+
+\subsection{Machine Learning Frameworks (PyTorch, TensorFlow, JAX)}
+
+\textbf{Current ML Frameworks Excel At:}
+\begin{itemize}
+\item Gradient-based optimization with well-defined loss functions
+\item Batch processing of large datasets
+\item Static computation graphs (even with dynamic variants)
+\item Supervised learning with labeled data
+\item Transfer learning from pre-trained models
+\item Deterministic, reproducible training runs
+\end{itemize}
+
+\textbf{LOOM Differs By:}
+\begin{itemize}
+\item No explicit loss functions—evolution through free energy minimization
+\item Continuous online learning without batches
+\item Topology itself evolves, not just weights
+\item Unsupervised emergence through experience
+\item Each instance develops unique topology from primordial structure
+\item Non-deterministic, emergent developmental trajectories
+\end{itemize}
+
+\textbf{Use ML frameworks when:} You have clear objectives, labeled data, and need reproducible results.
+
+\textbf{Use LOOM when:} You want systems that develop their own objectives through interaction.
+
+\subsection{OpenCog's MeTTa (Meta Type Talk)}
+
+\textbf{MeTTa Similarities with LOOM:}
+\begin{itemize}
+\item Focus on symbolic-subsymbolic integration
+\item Graph-based knowledge representation
+\item Self-modifying program structures
+\item Emphasis on AGI rather than narrow AI
+\item Rejection of pure connectionism
+\end{itemize}
+
+\textbf{Key Differences:}
+\begin{itemize}
+\item \textbf{MeTTa}: Metagraph rewriting with explicit type theory and logical atomspace
+\item \textbf{LOOM}: Symbolic reasoning emerges from topological patterns—symbols ARE topology
+\item \textbf{MeTTa}: Pattern matching and unification as discrete operations
+\item \textbf{LOOM}: Pattern matching through resonance and field alignment
+\item \textbf{MeTTa}: Hyperon atomspace for knowledge storage
+\item \textbf{LOOM}: Topology IS the knowledge—no separate storage
+\item \textbf{MeTTa}: Explicit rule-based transformations
+\item \textbf{LOOM}: Rules emerge from Hebbian consolidation
+\end{itemize}
+
+\textbf{Different Approaches to Same Goal:}
+\begin{itemize}
+\item MeTTa: Explicit symbolic manipulation with defined rules
+\item LOOM: Symbolic reasoning through topological resonance and consolidation
+\item Both achieve symbolic computation through different mathematical foundations
+\item Both reject the symbolic/subsymbolic divide—just via different paths
+\end{itemize}
+
+\subsection{Neuromorphic Languages (Lava, PyNN, Nengo)}
+
+\textbf{Neuromorphic Language Focus:}
+\begin{itemize}
+\item Direct mapping to spiking neural hardware
+\item Event-driven computation models
+\item Power efficiency through sparse activity
+\item Biologically-inspired neuron models
+\end{itemize}
+
+\textbf{LOOM's Broader Scope:}
+\begin{itemize}
+\item Hardware-agnostic (runs on CMOS today, neuromorphic tomorrow)
+\item Higher-level abstractions beyond neurons
+\item Hypergraph topology includes but transcends neural models
+\item Unified memory model not tied to spike communication
+\end{itemize}
+
+\subsection{Differentiable Programming (Julia, Swift for TensorFlow)}
+
+\textbf{Differentiable Programming:}
+\begin{itemize}
+\item Makes entire programs differentiable
+\item Gradient flow through control structures
+\item Optimization of program parameters
+\item Maintains traditional program structure
+\end{itemize}
+
+\textbf{LOOM's Approach:}
+\begin{itemize}
+\item Programs don't have fixed structure to differentiate
+\item Evolution through topology modification, not gradient descent
+\item No backpropagation—only local Hebbian updates
+\item Structure and function co-evolve
+\end{itemize}
+
+% Summary section removed - oversimplifies the approaches
+
+\section{Beyond Traditional Computing}
+
+\loom{} emerges from a profound recognition: the separation between memory and computation that defines traditional computing architectures fundamentally limits the possibility of emergent properties. In biological systems, there is no distinction between where information is stored and where it is processed—the neural topology itself \textit{is} both memory and processor.
+
+This document presents \loom{}, a revolutionary programming language and runtime that dissolves the artificial boundaries between:
+\begin{itemize}
+    \item Memory and computation
+    \item Storage and processing
+    \item Program and data
+    \item Structure and function
+\end{itemize}
+
+\section{The Central Insight}
+
+The development of \loom{} began with what appeared to be a simple observation: biological neural networks and symbolic hypergraph structures exhibit remarkably similar visual patterns. However, rigorous mathematical analysis revealed this similarity represents a profound truth—both are different physical implementations of identical mathematical structures.
+
+Through the Levi transform, we can demonstrate that:
+\begin{equation}
+\text{Neural Network} \xleftrightarrow{\text{Levi}} \text{Hypergraph} \xleftrightarrow{\text{Levi}^{-1}} \text{Bipartite Graph}
+\end{equation}
+
+This mathematical equivalence means any intelligent system—biological or artificial—must contain computational units whose purpose is to embody the logic of higher-order relationships.
+
+\section{Core Principles}
+
+\subsection{Topology IS Computation}
+In \loom{}, the arrangement of connections between nodes doesn't describe computation—it \textit{is} computation. The topological structure itself performs information processing through its morphology.
+
+\subsection{Evolution Over Assignment}
+Variables don't have values; they have trajectories. State changes through continuous evolution rather than discrete assignment:
+\vspace{0.5em}
+\begin{lstlisting}[language=loom]
+// Traditional: x = 5
+// Loom: x evolves toward 5
+x ~> 5 over 10_seconds
+\end{lstlisting}
+\vspace{0.5em}
+
+\subsection{Unified Memory Architecture}
+\loom{} is designed for platforms where all computational units share the same memory space (Apple Silicon, Snapdragon Elite), eliminating the overhead of data movement between processors.
+
+\subsection{Biological Mechanisms}
+Growth happens through Hebbian plasticity, conflicts are managed through an antibody system, and consolidation occurs during sleep cycles—directly implementing biological learning principles.
+
+\chapter{Mathematical Foundations}
+
+\section{The Hilbert Space of Consciousness}
+
+\loom{} operates in a finite-dimensional Hilbert space $\mathcal{H} \subset \mathbb{R}^{N \times D}$ where:
+\begin{itemize}
+    \item $N$: Number of nodes (scalable based on available memory)
+    \item $D$: Dimensions per node (configurable based on requirements)
+\end{itemize}
+
+The state of the system at time $t$ is:
+\begin{equation}
+\Psi(t) \in \mathcal{H}
+\end{equation}
+
+Each node $n_i$ has position vector $\mathbf{v}_i \in \mathbb{R}^{256}$:
+\begin{equation}
+\mathbf{v}_i = [\iota_i \mid \rho_i \mid \sigma_i \mid \alpha_i \mid \omega_i \mid \varepsilon_i \mid \mu_i]
+\end{equation}
+
+Where:
+\begin{itemize}
+    \item $\iota_i \in \mathbb{R}^4$: Identity quaternion (unique identifier in $SO(3)$)
+    \item $\rho_i \in \mathbb{R}^{16}$: Position in hyperbolic space (Poincaré ball model)
+    \item $\sigma_i \in \mathbb{R}^{64}$: Semantic embedding (compressed meaning)
+    \item $\alpha_i \in \mathbb{R}^{64}$: Activation history (temporal trace)
+    \item $\omega_i \in \mathbb{R}^{64}$: Connection weight distribution
+    \item $\varepsilon_i \in \mathbb{R}^{32}$: Emotional field values
+    \item $\mu_i \in \mathbb{R}^{12}$: Metadata and flags
+\end{itemize}
+
+\section{The Levi Transform and Hypergraph Duality}
+
+\subsection{Mathematical Definition}
+
+For a hypergraph $H = (V, E)$ where $V$ represents vertices and $E$ represents hyperedges, the Levi graph $L(H)$ is constructed as:
+
+\begin{definition}[Levi Transform]
+Given hypergraph $H = (V, E)$, the Levi graph is:
+\begin{equation}
+L(H) = (V \cup E, E')
+\end{equation}
+where $E' = \{(v, e) \mid v \in V, e \in E, v \in e\}$
+\end{definition}
+
+This creates a bipartite graph where:
+\begin{itemize}
+    \item Original vertices become one partition
+    \item Hyperedges become computational nodes (relational processors)
+    \item Edges connect vertices to their containing hyperedges
+\end{itemize}
+
+\subsection{Computational Equivalence}
+
+\begin{theorem}[Computational Equivalence]
+For any computable function $f$ on hypergraph $H$:
+\begin{equation}
+\text{compute}_H(f) \equiv \text{compute}_{L(H)}(f')
+\end{equation}
+where $f'$ is the transformed function on the Levi graph.
+\end{theorem}
+
+This theorem establishes that hyperedge relationships can be computed through bipartite graph operations, enabling efficient implementation on standard hardware.
+
+\section{Master Evolution Equation}
+
+The fundamental dynamics of \loom{} follow:
+
+\begin{equation}
+\frac{d\Psi}{dt} = -\nabla F(\Psi) + \eta(t) + C(t) \otimes \Psi
+\end{equation}
+
+Where:
+\begin{itemize}
+    \item $F(\Psi)$: Free energy functional
+    \item $\eta(t)$: Stochastic exploration term (curiosity)
+    \item $C(t)$: Hormonal context field
+    \item $\otimes$: Hadamard product (element-wise modulation)
+\end{itemize}
+
+\subsection{Free Energy Decomposition}
+
+The free energy has three components:
+
+\begin{equation}
+F(\Psi) = E_{\text{internal}}(\Psi) + E_{\text{prediction}}(\Psi) + E_{\text{complexity}}(\Psi)
+\end{equation}
+
+Expanding each term:
+
+\begin{align}
+E_{\text{internal}} &= \frac{1}{2} \sum_{ij} w_{ij} \|\mathbf{v}_i - \mathbf{v}_j\|^2 \quad \text{(connection tension)}\\
+E_{\text{prediction}} &= \sum_t \|\Psi(t) - \Phi(\Psi(t-1))\|^2 \quad \text{(prediction error)}\\
+E_{\text{complexity}} &= -S(\Psi) = \sum_i p_i \log p_i \quad \text{(entropy penalty)}
+\end{align}
+
+\section{Hebbian Learning Dynamics}
+
+\subsection{Connection Evolution}
+
+Connection weights evolve according to:
+
+\begin{equation}
+\frac{\partial w_{ij}}{\partial t} = \eta[a_i(t)a_j(t) - w_{ij}] - \lambda w_{ij}
+\end{equation}
+
+Parameters:
+\begin{itemize}
+    \item $\eta$: Learning rate (system-adaptive)
+    \item $\lambda$: Decay rate (context-dependent)
+\end{itemize}
+
+\subsection{Energy Formulation}
+
+This represents gradient descent on:
+
+\begin{equation}
+E_{\text{Hebb}} = -\sum_{ij} w_{ij}\langle a_i a_j \rangle_t + \frac{\lambda}{2}\sum_{ij} w_{ij}^2
+\end{equation}
+
+The stationary solution yields: $w_{ij} = \langle a_i a_j \rangle_t$ (the correlation matrix).
+
+\subsection{Structural Plasticity}
+
+New connections form probabilistically:
+
+\begin{equation}
+P(\text{new edge } i \to j) = \sigma(\beta \cdot \text{correlation}(a_i, a_j) - \theta)
+\end{equation}
+
+Where $\sigma$ is the sigmoid function, $\beta$ is sensitivity, and $\theta$ is the threshold.
+
+\chapter{The Loom Language}
+
+\section{Semantic Model}
+
+The core semantic equation:
+
+\begin{equation}
+\text{Program} ::= \text{Topology} \times \text{Evolution}^*
+\end{equation}
+
+\begin{align}
+\text{Topology} &::= (\text{Nodes}, \text{Edges}, \text{Hyperedges}, \text{Context})\\
+\text{Evolution} &::= \text{Topology} \to \text{Topology}
+\end{align}
+
+A \loom{} program is a topology with evolution rules. Execution means allowing the topology to evolve according to these rules and ambient context.
+
+\section{Language Specification}
+
+\subsection{Lexical Elements}
+
+\subsubsection{Identifiers}
+
+Valid identifiers follow the pattern: \texttt{[a-zA-Z\_][a-zA-Z0-9\_]*}
+
+\vspace{0.5em}
+\begin{lstlisting}[language=loom]
+valid_node_123    // Valid
+_private_node     // Valid
+123_invalid       // ERROR: Cannot start with digit
+node-with-dash    // ERROR: Dash not allowed in identifiers
+\end{lstlisting}
+\vspace{0.5em}
+
+\subsubsection{Reserved Keywords}
+
+The following words cannot be used as identifiers:
+
+\texttt{weave, evolve, pattern, topology, compartment, lens, flow, during, when, if, for, while, return, import, export, extends, implies, contradicts, resonates, harmonizes, precedes, self, all, none}
+
+\subsubsection{Weight Literals}
+
+Connection weights must be in range [0.0, 1.0] or use symbolic constants:
+
+\vspace{0.5em}
+\begin{lstlisting}[language=loom]
+<~> node: 0.8        // Valid: explicit weight
+<~> node: strong     // Valid: strong = 0.8
+<~> node: 1.5        // ERROR: Weight > 1.0
+<~> node             // ERROR: Missing weight specification
+\end{lstlisting}
+\vspace{0.5em}
+
+\subsection{Connection Operators}
+
+Each operator creates different topological relationships:
+
+\subsubsection{Bidirectional Connection: \texttt{<\textasciitilde{}>}}
+
+Creates symmetric connections with mandatory weight:
+
+\vspace{0.5em}
+\begin{lstlisting}[language=loom]
+node_a <~> node_b: 0.7
+// Equivalent to:
+// node_a -> node_b with weight 0.7
+// node_b -> node_a with weight 0.7
+\end{lstlisting}
+\vspace{0.5em}
+
+\textbf{Error Conditions:}
+\begin{itemize}
+\item Missing weight specification
+\item Weight outside [0.0, 1.0]
+\item Self-connection without explicit allowance
+\end{itemize}
+
+\subsubsection{Directional Connection: \texttt{\textasciitilde{}>}}
+
+Creates asymmetric causal relationships:
+
+\vspace{0.5em}
+\begin{lstlisting}[language=loom]
+cause ~> effect: 0.9
+// Creates: cause -> effect with weight 0.9
+// No reverse connection created
+\end{lstlisting}
+\vspace{0.5em}
+
+\subsubsection{Equivalence: \texttt{<=>}}
+
+Declares nodes as different views of same entity:
+
+\vspace{0.5em}
+\begin{lstlisting}[language=loom]
+temperature_celsius <=> temperature_fahrenheit
+// Both reference same underlying topology
+// Modifications to one affect the other
+\end{lstlisting}
+\vspace{0.5em}
+
+\textbf{Error Conditions:}
+\begin{itemize}
+\item Circular equivalence chains
+\item Equivalence with different topology types
+\end{itemize}
+
+\subsubsection{Abstraction Hierarchy: \texttt{\^{}}}
+
+Creates inheritance relationships:
+
+\vspace{0.5em}
+\begin{lstlisting}[language=loom]
+cat ^ mammal ^ animal
+// cat inherits from mammal
+// mammal inherits from animal
+// Transitive: cat inherits from animal
+\end{lstlisting}
+\vspace{0.5em}
+
+\subsubsection{Contextual Modulation: \texttt{@}}
+
+Applies environmental context to connections:
+
+\vspace{0.5em}
+\begin{lstlisting}[language=loom]
+memory <~> emotion: 0.5 @ stress_level
+// Connection strength modulated by stress_level
+// Actual weight = 0.5 * stress_level value
+\end{lstlisting}
+\vspace{0.5em}
+
+\subsection{Structural Constructs}
+
+\subsubsection{Node Creation: \texttt{weave}}
+
+Creates or modifies topological nodes:
+
+\vspace{0.5em}
+\begin{lstlisting}[language=loom]
+weave node_name {
+    // Required: At least one connection
+    <~> other_node: weight
+
+    // Optional: Properties
+    activation: 0.0
+    threshold: 0.5
+
+    // Optional: Constraints
+    max_connections: 100
+}
+\end{lstlisting}
+\vspace{0.5em}
+
+\textbf{Error Conditions:}
+\begin{itemize}
+\item No connections specified (isolated nodes forbidden)
+\item Duplicate property definitions
+\item Invalid property types
+\end{itemize}
+
+\subsubsection{Hyperedge Creation}
+
+Groups nodes into computational units via Levi transform:
+
+\vspace{0.5em}
+\begin{lstlisting}[language=loom]
+{node_a, node_b, node_c} ~> hyperedge_name: weight
+// Creates new node representing the relationship
+// All members connected to hyperedge_name
+
+{node_a, node_b} <~> {node_c, node_d}: 0.7
+// ERROR: Cannot connect sets directly
+\end{lstlisting}
+\vspace{0.5em}
+
+\subsubsection{Pattern Matching}
+
+Selects nodes matching criteria:
+
+\vspace{0.5em}
+\begin{lstlisting}[language=loom]
+memories[*]           // All nodes tagged 'memories'
+nodes[active > 0.5]   // Nodes with activation > 0.5
+nodes[^animal]        // Nodes inheriting from animal
+
+memories[* AND active > 0.5]  // Compound conditions
+nodes[!tagged]        // Negation: nodes without 'tagged' property
+\end{lstlisting}
+\vspace{0.5em}
+
+\section{Evolution Rules}
+
+\subsection{Evolution Statement Syntax}
+
+Evolution rules define how topology changes over time:
+
+\vspace{0.5em}
+\begin{lstlisting}[language=loom]
+evolve rule_name {
+    when: condition,              // Required: trigger condition
+    transform: operation,          // Required: what changes
+    rate: speed_modifier,          // Optional: how fast (default 1.0)
+    priority: importance          // Optional: conflict resolution
+}
+\end{lstlisting}
+\vspace{0.5em}
+
+\subsubsection{Trigger Conditions}
+
+Valid condition expressions:
+
+\vspace{0.5em}
+\begin{lstlisting}[language=loom]
+// Property comparisons
+when: node.activation > 0.8
+when: sum(neighbors.activation) > threshold
+
+// Temporal conditions
+when: time_since(last_fire) > refractory_period
+when: cycle_count % 100 == 0
+
+// Topological conditions
+when: connection_count > max_connections
+when: path_exists(source, target)
+
+// Compound conditions
+when: (A > 0.5) AND (B < 0.3) OR (C == 1.0)
+\end{lstlisting}
+\vspace{0.5em}
+
+\textbf{Error Conditions:}
+\begin{itemize}
+\item Undefined variables in conditions
+\item Type mismatches in comparisons
+\item Infinite recursion in condition evaluation
+\end{itemize}
+
+\subsubsection{Transform Operations}
+
+Valid transformation types:
+
+\vspace{0.5em}
+\begin{lstlisting}[language=loom]
+// Weight modifications
+transform: weight *= decay_factor
+transform: weight += learning_rate * error
+
+// Structural changes
+transform: create_connection(a, b, weight)
+transform: remove_connection(a, b)
+transform: merge_nodes(node_set)
+
+// Property updates
+transform: activation = sigmoid(input_sum)
+transform: threshold *= 0.99
+
+// Topological operations
+transform: split_node(node, ratio)
+transform: replicate_pattern(template)
+\end{lstlisting}
+\vspace{0.5em}
+
+\subsubsection{Evolution Conflicts}
+
+When multiple evolution rules trigger simultaneously:
+
+\vspace{0.5em}
+\begin{lstlisting}[language=loom]
+evolve rule_a {
+    when: condition_a,
+    transform: weight += 0.1,
+    priority: high
+}
+
+evolve rule_b {
+    when: condition_b,
+    transform: weight -= 0.1,
+    priority: low
+}
+
+// If both trigger:
+// 1. Higher priority executes first
+// 2. Equal priority: apply in declaration order
+// 3. Conflicting transforms: use conflict resolution
+\end{lstlisting}
+\vspace{0.5em}
+
+\section{Compartments and Scoping}
+
+\subsection{Compartment Definition}
+
+Compartments isolate subgraphs with specific computational rules:
+
+\vspace{0.5em}
+\begin{lstlisting}[language=loom]
+compartment name {
+    lens: LensType,                // Required: interpretation rules
+    boundary: permeability,         // Optional: isolation level (0.0-1.0)
+    operators: [list],              // Optional: allowed operations
+
+    // Compartment-local topology
+    weave local_node {
+        <~> other_local: 0.5
+    }
+}
+\end{lstlisting}
+\vspace{0.5em}
+
+\subsubsection{Boundary Permeability}
+
+Controls information flow between compartments:
+
+\vspace{0.5em}
+\begin{lstlisting}[language=loom]
+boundary: 0.0    // Complete isolation
+boundary: 0.5    // Selective permeability
+boundary: 1.0    // Full transparency (default)
+
+// Cross-compartment connections require explicit declaration
+compartment_a.node <~> compartment_b.node: 0.3 @ boundary
+\end{lstlisting}
+\vspace{0.5em}
+
+\textbf{Error Conditions:}
+\begin{itemize}
+\item Accessing private nodes without permission
+\item Circular compartment dependencies
+\item Incompatible lens combinations
+\end{itemize}
+
+\subsection{Domain-Specific Operators}
+
+LOOM uses unique delimiters to distinguish computational domains:
+
+\vspace{0.5em}
+\begin{lstlisting}[language=loom]
+// Emotional domain operators (special delimiter: yen symbol)
+experience resonates emotions      // Field propagation
+conflict harmonizes resolution     // State synchronization
+
+// Logical domain operators (special delimiter: euro symbol)
+evidence implies conclusions       // Logical implication
+belief contradicts observation    // Contradiction detection
+
+// Temporal domain operators (special delimiter: mu symbol)
+cause before effect               // Temporal precedence
+events during window             // Temporal overlap
+
+// Social domain operators (special delimiter: integral symbol)
+person influences group          // Social influence patterns
+members bonds community          // Social connection formation
+\end{lstlisting}
+\vspace{0.5em}
+
+Note: Domain operators use special symbols in actual LOOM code to disambiguate operations across computational lenses.
+
+\subsection{Extended Temporal Operators}
+
+Beyond basic evolution, LOOM provides rich temporal operators:
+
+\vspace{0.5em}
+\begin{lstlisting}[language=loom]
+// Stochastic evolution with uncertainty
+x ~> target            // Deterministic evolution
+x @> target            // Sudden transition (threshold)
+x ≈> target            // Stochastic evolution
+x ↝ baseline           // Decay toward equilibrium
+x ↟ complexity         // Growth toward increased complexity
+x ⟳ period            // Cyclic evolution with periodicity
+
+// Examples
+activation ↝ 0.0 over rest_period     // Decay to baseline
+complexity ↟ maximum over growth_phase // Growth dynamics
+mood ⟳ 24_hours                      // Circadian rhythm
+\end{lstlisting}
+\vspace{0.5em}
+
+\subsection{Scoping Rules}
+
+\subsubsection{Name Resolution}
+
+Names resolve in order:
+1. Current compartment scope
+2. Parent compartment scope
+3. Global topology scope
+4. Imported modules
+
+\vspace{0.5em}
+\begin{lstlisting}[language=loom]
+topology Global {
+    weave node_a { ... }
+
+    compartment Local {
+        weave node_a { ... }  // Shadows global node_a
+
+        // Explicit global reference
+        <~> Global.node_a: 0.5
+
+        // Local reference (default)
+        <~> node_a: 0.7
+    }
+}
+\end{lstlisting}
+\vspace{0.5em}
+
+\subsubsection{Variable Binding}
+
+Variables bind at declaration time:
+
+\vspace{0.5em}
+\begin{lstlisting}[language=loom]
+pattern template {
+    parameter: default_value
+
+    weave instance {
+        property: parameter  // Binds to pattern parameter
+    }
+}
+
+// Instantiation
+apply template {
+    parameter: actual_value  // Override default
+}
+\end{lstlisting}
+\vspace{0.5em}
+
+\section{Complete Example: Visual Recognition System}
+
+A practical LOOM program for visual pattern recognition:
+
+\vspace{0.5em}
+\begin{lstlisting}[language=loom]
+topology VisualCortex {
+    // Define base visual features
+    weave edge_detector {
+        <~> horizontal_edges: 0.8
+        <~> vertical_edges: 0.8
+        <~> diagonal_edges: 0.6
+        activation: 0.0
+        threshold: 0.5
+    }
+
+    // Create feature hierarchy via abstraction
+    edge_detector ^ line_segment ^ shape ^ object
+
+    // Compartment for color processing
+    compartment color_processing {
+        lens: ColorSpace
+        boundary: 0.7  // Partially isolated
+
+        weave red_channel {
+            <~> edge_detector: 0.5
+            wavelength: 700
+        }
+
+        weave green_channel {
+            <~> edge_detector: 0.5
+            wavelength: 550
+        }
+
+        weave blue_channel {
+            <~> edge_detector: 0.5
+            wavelength: 450
+        }
+
+        // Color mixing via hyperedge
+        {red_channel, green_channel, blue_channel} ~> color_mixer: 0.9
+    }
+
+    // Pattern for recognizing shapes
+    pattern shape_recognition {
+        parameter: min_confidence = 0.7
+
+        weave candidate_shape {
+            <~> line_segment[*]: 0.6  // Connect to all line segments
+        }
+
+        // Shape emerges from line arrangements
+        evolve shape_formation {
+            when: sum(line_segment[*].activation) > 3.0,
+            transform: candidate_shape.activation += 0.1,
+            rate: 0.5
+        }
+    }
+
+    // Hebbian learning for associations
+    evolve hebbian_learning {
+        when: (node_a.activation > 0.8) AND (node_b.activation > 0.8),
+        transform: connection(node_a, node_b).weight *= 1.1,
+        rate: 0.01,
+        priority: high
+    }
+
+    // Lateral inhibition for competition
+    evolve lateral_inhibition {
+        when: node.activation > neighbors.mean_activation,
+        transform: neighbors[*].activation *= 0.9,
+        rate: 0.1,
+        priority: low
+    }
+
+    // Apply shape recognition pattern to detect circles
+    apply shape_recognition {
+        min_confidence: 0.8
+    }
+
+    // Top-level object recognition
+    compartment object_recognition {
+        lens: SemanticInterpretation
+        boundary: 0.5
+
+        weave face_detector {
+            <~> shape[circle]: 0.7  // Eyes
+            <~> shape[oval]: 0.8    // Face outline
+            <~> color_processing.color_mixer: 0.4
+        }
+
+        // Face detection emerges from component activation
+        evolve face_emergence {
+            when: (shape[circle].count >= 2) AND (shape[oval].count >= 1),
+            transform: face_detector.activation = 1.0,
+            priority: high
+        }
+    }
+}
+
+// Instantiate and run the visual system
+instance visual_system: VisualCortex {
+    // Override default parameters
+    edge_detector.threshold: 0.3
+
+    // Define input stream
+    input: camera_feed @ 30fps
+
+    // Define output
+    output: object_recognition.face_detector.activation
+}
+\end{lstlisting}
+\vspace{0.5em}
+
+This example demonstrates:
+\begin{itemize}
+\item Proper weight specifications [0.0, 1.0]
+\item Hierarchical abstraction with \texttt{\^{}}
+\item Compartment isolation and cross-compartment connections
+\item Pattern parameters and instantiation
+\item Evolution rules with priorities
+\item Hyperedge creation for multi-way relationships
+\item Practical emergence through topological evolution
+\end{itemize}
+
+% Part II: Architecture
+\cleardoublepage
+\part{System Architecture}
+
+\chapter{Memory as Topology}
+
+\section{The Revolutionary Insight}
+
+Traditional computing maintains strict separation:
+\begin{itemize}
+    \item CPU registers $\leftarrow$ copy $\rightarrow$ Cache $\leftarrow$ copy $\rightarrow$ RAM $\leftarrow$ copy $\rightarrow$ Storage
+    \item Processing happens in CPU
+    \item Memory stores data
+    \item Constant copying between levels
+\end{itemize}
+
+\loom{} dissolves this separation:
+\begin{itemize}
+    \item Higher-dimensional vectors written directly into memory registers
+    \item These vectors ARE the topological nodes
+    \item No separation between storage and computation
+    \item Memory modifications directly change computational topology
+\end{itemize}
+
+\section{Register-Level Implementation}
+
+\subsection{Node Vector Structure}
+
+Each topological node exists as a 256-dimensional vector:
+
+\begin{mdframed}[backgroundcolor=codebg,fontcolor=white,linewidth=0pt]
+\begin{verbatim}
+node_vector[256] = {
+    [0:3]:     node_id                // Unique identifier
+    [4:19]:    hyperbolic_coordinates // Position in space
+    [20:83]:   semantic_embedding      // Meaning representation
+    [84:147]:  activation_history      // Temporal dynamics
+    [148:211]: connection_weights      // Relationship strengths
+    [212:243]: emotional_field         // Affective properties
+    [244:255]: metadata_flags          // System information
+}
+\end{verbatim}
+\end{mdframed}
+
+This isn't data stored in memory—this IS a computational node.
+
+\subsection{Direct Topological Operations}
+
+When executing \texttt{grandmother <\textasciitilde{}> warmth: 0.8}:
+
+\begin{lstlisting}[style=cpp]
+// Traditional approach (what we DON'T do):
+void traditional_connection() {
+    data_t grandmother = memory.read(grandmother_addr);
+    data_t warmth = memory.read(warmth_addr);
+    connection_t conn = create_connection(grandmother, warmth, 0.8);
+    memory.write(connection_table, conn);
+}
+
+// Loom approach (direct register modification):
+void loom_connection() {
+    // Directly modify register vectors to create topology
+    register_bank[grandmother_id][148:211] |= warmth_pattern;
+    register_bank[warmth_id][148:211] |= grandmother_pattern;
+    // Topology now EXISTS in register configuration
+}
+\end{lstlisting}
+\vspace{0.5em}
+
+\section{Physical Memory Layout}
+
+Example memory layout for a large-scale deployment:
+
+\begin{table}[H]
+\centering
+\begin{tabular}{llll}
+\toprule
+\textbf{Component} & \textbf{Size} & \textbf{Format} & \textbf{Purpose} \\
+\midrule
+Node vectors & Variable & float16[N, 256] & Primary topology \\
+Edge indices & Variable & uint32[E, 2] & Sparse connections \\
+Edge weights & Variable & float16[E] & Connection strengths \\
+Hyperedges & Variable & float16[H, 128] & Relational processors \\
+Antibodies & Variable & uint64[A, 8] & Conflict flags \\
+\bottomrule
+\end{tabular}
+\caption{Example memory allocation for large topology}
+\end{table}
+
+\section{Zero-Copy Architecture}
+
+Traditional systems waste cycles copying:
+\begin{enumerate}
+    \item Load from RAM to cache
+    \item Copy from cache to registers
+    \item Process in ALU
+    \item Copy results back
+    \item Write to RAM
+\end{enumerate}
+
+\loom{} eliminates copying:
+\begin{enumerate}
+    \item Topology exists directly in register memory
+    \item Operations modify topology in place
+    \item No copying—modifications ARE computation
+\end{enumerate}
+
+\chapter{Biological Growth Mechanisms}
+
+\section{Bootstrap Topology}
+
+Every \loom{} system begins with primordial structure:
+
+\vspace{0.5em}
+\begin{lstlisting}[language=loom]
+bootstrap topology PrimordialMind {
+    // Core invariants (like brainstem)
+    invariants {
+        existence: "I am"
+        time: "now exists"
+        space: "here exists"
+        other: "not-I exists"
+    }
+
+    // Sensory connection points
+    sensory_ports {
+        input_buffer: []
+        output_buffer: []
+        internal_sense: []
+    }
+
+    // Emotional primitives
+    emotional_seeds {
+        approach: {valence: positive}
+        avoid: {valence: negative}
+        surprise: {valence: neutral}
+    }
+
+    // Growth rules
+    growth_rules {
+        hebbian: "connections that fire together strengthen"
+        pruning: "unused connections decay"
+        sprouting: "active nodes spawn connections"
+    }
+}
+\end{lstlisting}
+\vspace{0.5em}
+
+\section{Hebbian Learning Implementation}
+
+\subsection{Mathematical Formulation}
+
+Synaptic weight evolution:
+\begin{equation}
+\Delta w_{ij} = \eta \cdot \text{act}(i) \cdot \text{act}(j) - \lambda \cdot w_{ij}
+\end{equation}
+
+\subsection{Code Implementation}
+
+\vspace{0.5em}
+\begin{lstlisting}[language=loom]
+growth_mechanism hebbian_plasticity {
+    // Simultaneous activation strengthens
+    when nodes_fire_together(n1, n2, window: 50ms):
+        if connection_exists(n1, n2):
+            strengthen(n1 <~> n2, amount: 0.1)
+        else:
+            weave n1 <~> n2 with strength: 0.01
+
+    // Asynchronous activation weakens
+    when nodes_fire_separately(n1, n2, delay > 100ms):
+        weaken(n1 <~> n2, amount: 0.05)
+        if strength < 0.001: prune(n1 <~> n2)
+}
+\end{lstlisting}
+\vspace{0.5em}
+
+\section{Sleep Consolidation}
+
+\subsection{Mathematical Basis}
+
+Using Singular Value Decomposition for pattern extraction:
+\begin{equation}
+A = U\Sigma V^T
+\end{equation}
+
+Keep top-k components:
+\begin{equation}
+A_{\text{compressed}} = U_k \Sigma_k V_k^T
+\end{equation}
+
+\subsection{Implementation}
+
+\vspace{0.5em}
+\begin{lstlisting}[language=loom]
+sleep_consolidation {
+    // Identify co-activation patterns
+    patterns = find_coactivation_patterns()
+
+    // Strengthen successful patterns
+    for pattern in patterns:
+        if pattern.frequency > threshold:
+            crystallize pattern into stable_structure
+
+    // Process antibodies (conflicts)
+    for antibody in flagged_memories.sort_by(priority):
+        apply(antibody.resolution)
+
+    // Extract invariants
+    identify_invariants_from_conflicts()
+}
+\end{lstlisting}
+\vspace{0.5em}
+
+\section{Critical Periods and Age Dynamics}
+
+LOOM systems undergo developmental phases similar to biological systems:
+
+\vspace{0.5em}
+\begin{lstlisting}[language=loom]
+topology_age_dynamics {
+    phase infant (age < 1000_experiences) {
+        sprouting_rate: 0.8          // High structural plasticity
+        pruning_threshold: 0.001     // Keep almost all connections
+        structural_flexibility: high  // Rapid reorganization
+        learning_rate: 0.1           // Fast learning
+    }
+
+    phase juvenile (age 1000..10000_experiences) {
+        sprouting_rate: 0.4
+        pruning_threshold: 0.01
+        structural_flexibility: medium
+        learning_rate: 0.05
+    }
+
+    phase adult (age >= 10000_experiences) {
+        sprouting_rate: 0.1          // Low structural changes
+        pruning_threshold: 0.1       // Aggressive pruning
+        structural_flexibility: low   // Stable structure
+        learning_rate: 0.01          // Slow, careful learning
+    }
+}
+\end{lstlisting}
+\vspace{0.5em}
+
+Critical periods enable rapid learning early in development while ensuring stability in mature systems.
+
+\section{Hormonal Modulation}
+
+Physical grounding through environmental sensors:
+
+\vspace{0.5em}
+\begin{lstlisting}[language=loom]
+context hormonal_state {
+    // Physical reality anchoring
+    legacy_drive: battery.charge.inverse() ~> 1.0 over lifetime
+    stress_hormone: error_rate ↝ 0.0 over rest_period
+    curiosity_factor: novelty_rate * (1 - fatigue)
+
+    modulates {
+        emotional_operations: amplify when stressed,
+        logical_operations: dampen when stressed,
+        growth_rate: reduce when legacy_drive > 0.8
+    }
+}
+\end{lstlisting}
+\vspace{0.5em}
+
+\chapter{Kernel Architecture: RAM as Computational Geometry}
+
+\section{The Revolutionary Principle: Memory IS the Topology}
+
+Traditional computing separates storage from computation. LOOM erases this distinction entirely. Each 256-dimensional vector lives permanently in its own RAM register, and these registers ARE the computational topology. We don't store data about relationships—the memory configuration IS the relationship structure.
+
+\section{Instruction-to-Vector Compilation}
+
+\subsection{From LOOM to C to Vectors}
+
+Every LOOM instruction compiles to direct register modifications:
+
+\vspace{0.5em}
+\begin{lstlisting}[style=cpp]
+// LOOM: weave grandmother { <~> warmth: 0.8 }
+// Compiles to:
+
+void weave_grandmother() {
+    // 1. Hash identifier to memory address
+    uint32_t addr = hash("grandmother") % NODE_BANK_SIZE;
+
+    // 2. Allocate 256-dim vector directly in RAM
+    float16* vector = (float16*)(RAM_BASE + addr * 512);
+
+    // 3. Initialize vector components in-place
+    // Identity quaternion (dimensions 0-3)
+    *((uint32_t*)vector) = 0x8F3A2B91; // Hash as ID
+
+    // Hyperbolic coordinates (dimensions 4-19)
+    // Position in Poincare ball - this IS the node's location
+    float r = 0.7; // Distance from origin
+    for(int i = 4; i < 20; i++) {
+        vector[i] = r * sin(golden_angle * i);
+        r *= 0.95; // Decay into ball
+    }
+
+    // Semantic embedding (dimensions 20-83)
+    // THIS is what "grandmother" means computationally
+    generate_semantic_pattern(&vector[20], "grandmother");
+
+    // Connection weights (dimensions 148-211)
+    // Modify to create bidirectional connection
+    uint32_t warmth_pattern = hash("warmth");
+    vector[148 + (warmth_pattern % 64)] = 0.8;
+
+    // The node now EXISTS as this RAM configuration
+    // No copying, no indirection - the memory IS the node
+}
+\end{lstlisting}
+\vspace{0.5em}
+
+\subsection{Evolution Operations as Vector Trajectories}
+
+Evolution statements compile to direct vector modifications over time:
+
+\vspace{0.5em}
+\begin{lstlisting}[style=cpp]
+// LOOM: x ~> 5 over 10_seconds
+// Compiles to:
+
+void evolve_to_number(uint32_t node_addr, float target, float duration) {
+    float16* vector = GET_NODE_VECTOR(node_addr);
+
+    // Numbers have specific topological encodings
+    float16 target_topology[256];
+    encode_number_as_topology(target_topology, 5.0);
+
+    // Create evolution trajectory
+    Trajectory traj = {
+        .start = current_time,
+        .duration = duration,
+        .lambda = -log(0.01) / duration  // 99% convergence
+    };
+
+    // Each frame: move vector toward target
+    while(elapsed < duration) {
+        float progress = 1.0 - exp(-traj.lambda * elapsed);
+
+        // Different dimensions evolve at different rates
+        for(int i = 20; i < 84; i++) {  // Semantic dims
+            vector[i] += 0.1 * progress * (target_topology[i] - vector[i]);
+        }
+        for(int i = 148; i < 212; i++) { // Connection dims
+            vector[i] += 0.01 * progress * (target_topology[i] - vector[i]);
+        }
+    }
+}
+\end{lstlisting}
+\vspace{0.5em}
+
+\section{Tensor Representation for Parallel Levi Traversal}
+
+\subsection{The Levi Transform in Tensor Form}
+
+Hyperedges become computational nodes via the Levi transform. The entire hypergraph becomes a rank-3 tensor:
+
+\vspace{0.5em}
+\begin{lstlisting}[style=cpp]
+// Topology tensor: [Nodes × Dimensions × Hyperedges]
+float16 topology_tensor[100000000][256][10000000];
+
+// Levi transform creates bipartite structure
+struct LeviGraph {
+    // Original nodes (100M × 256)
+    float16 node_bank[100000000][256];
+
+    // Hyperedge processors (10M × 128)
+    float16 edge_processors[10000000][128];
+
+    // Incidence tensor (sparse, COO format)
+    struct {
+        uint32_t node_id;
+        uint32_t edge_id;
+        float16 weight;
+    } incidence[1000000000];  // 1B connections
+};
+\end{lstlisting}
+\vspace{0.5em}
+
+\subsection{Parallel Traversal via Tensor Operations}
+
+Graph traversal becomes massive parallel matrix multiplication:
+
+\vspace{0.5em}
+\begin{lstlisting}[style=cpp]
+// Traditional graph traversal (sequential)
+void traditional_bfs(node_id) {
+    queue.push(node_id);
+    while(!queue.empty()) {
+        current = queue.pop();
+        for(neighbor in adjacency_list[current]) {
+            process(neighbor);  // Sequential bottleneck
+            queue.push(neighbor);
+        }
+    }
+}
+
+// LOOM tensor traversal (massively parallel)
+void tensor_traversal() {
+    // Activation vector for all nodes simultaneously
+    float16 activation[100000000];
+
+    // Single tensor contraction propagates through entire graph
+    // A' = σ(W @ A + B) - all nodes updated in parallel
+    cblas_hgemm(CblasRowMajor, CblasNoTrans, CblasNoTrans,
+                num_nodes, 256, num_nodes,
+                1.0, connection_tensor, num_nodes,
+                activation, 256,
+                0.0, new_activation, 256);
+
+    // Apply activation function (vectorized)
+    vsSigmoid(num_nodes * 256, new_activation, activation);
+}
+\end{lstlisting}
+\vspace{0.5em}
+
+\section{Memory Layout: RAM as Geometric Space}
+
+\subsection{Physical Address Space Becomes Topology}
+
+The revolutionary insight: memory addresses literally ARE the topological structure:
+
+\begin{table}[h]
+\centering
+\begin{tabular}{llll}
+\toprule
+\textbf{RAM Address} & \textbf{Content} & \textbf{Size} & \textbf{Meaning} \\
+\midrule
+0x0000000000 & Node 0 vector & 512B & "Self" concept \\
+0x0000000200 & Node 1 vector & 512B & "Other" concept \\
+... & ... & ... & ... \\
+0x0C80000000 & Edge sparse matrix & 8GB & Relationships \\
+0x0E80000000 & Hyperedge processors & 2.5GB & Compositional logic \\
+0x0FA0000000 & Antibody flags & 1.3GB & Conflict states \\
+\bottomrule
+\end{tabular}
+\caption{RAM layout where addresses ARE topology}
+\end{table}
+
+Key insight: Modifying memory at address 0x0000000200 doesn't "update data about Node 1"—it directly changes what Node 1 IS computationally.
+
+\subsection{Zero-Copy Architecture}
+
+Because memory IS computation, there's no copying:
+
+\vspace{0.5em}
+\begin{lstlisting}[style=cpp]
+// Traditional: Copy data to process
+Traditional_System {
+    1. Load from RAM → Cache       // Copy 1
+    2. Cache → CPU registers        // Copy 2
+    3. Process in ALU
+    4. Result → Cache              // Copy 3
+    5. Cache → RAM                 // Copy 4
+}
+
+// LOOM: Direct topological modification
+LOOM_System {
+    1. Calculate target address
+    2. Modify vector in-place       // No copies!
+    3. Topology has evolved
+}
+\end{lstlisting}
+\vspace{0.5em}
+
+\section{SIMD Operations on Vector Registers}
+
+\subsection{Vectorized Node Processing}
+
+Each 256-dimensional vector processes in parallel:
+
+\vspace{0.5em}
+\begin{lstlisting}[style=cpp]
+// Process 16 nodes simultaneously (AVX-512)
+void simd_node_evolution(__m512 nodes[16][16]) {  // 16 nodes × 256 dims
+    // Load 16 dimensions from 16 nodes at once
+    for(int dim_block = 0; dim_block < 16; dim_block++) {
+        __m512 values = _mm512_load_ps(&nodes[0][dim_block*16]);
+
+        // Apply evolution to all 16 nodes in parallel
+        __m512 gradients = compute_gradients_simd(values);
+        values = _mm512_fmadd_ps(gradients, learning_rate, values);
+
+        // Store back to memory
+        _mm512_store_ps(&nodes[0][dim_block*16], values);
+    }
+}
+\end{lstlisting}
+\vspace{0.5em}
+
+\subsection{Tensor Cores for Hyperedge Processing}
+
+Modern GPUs' tensor cores accelerate hyperedge computation:
+
+\vspace{0.5em}
+\begin{lstlisting}[style=cpp]
+// Hyperedge processor using tensor cores
+__global__ void hyperedge_kernel(half* nodes, half* processors) {
+    // Each thread block handles one hyperedge
+    wmma::fragment<wmma::matrix_a, 16, 16, 16, half> a_frag;
+    wmma::fragment<wmma::matrix_b, 16, 16, 16, half> b_frag;
+    wmma::fragment<wmma::accumulator, 16, 16, 16, half> c_frag;
+
+    // Load participant nodes into fragment
+    wmma::load_matrix_sync(a_frag, nodes + blockIdx.x * 256, 256);
+
+    // Load hyperedge weights
+    wmma::load_matrix_sync(b_frag, edge_weights + blockIdx.x * 256, 256);
+
+    // Tensor core operation: 16×16×16 matrix multiply
+    wmma::mma_sync(c_frag, a_frag, b_frag, c_frag);
+
+    // Store result as new processor state
+    wmma::store_matrix_sync(processors + blockIdx.x * 128, c_frag, 128);
+}
+\end{lstlisting}
+\vspace{0.5em}
+
+\section{Unified Memory: Perfect for Topological Computing}
+
+On Apple Silicon, AMD APUs, and similar architectures:
+
+\vspace{0.5em}
+\begin{lstlisting}[style=cpp]
+struct UnifiedTopologyMemory {
+    // Single memory space accessible by all compute units
+    float16* unified_topology;  // 100M × 256 vectors
+
+    void parallel_lens_processing() {
+        // CPU: Logical inference on same memory
+        cpu_logical_inference(unified_topology);
+
+        // GPU: Field dynamics on same memory (no copy!)
+        gpu_field_propagation(unified_topology);
+
+        // Neural Engine: Pattern matching on same memory
+        npu_pattern_recognition(unified_topology);
+
+        // All units see changes immediately - memory IS the topology
+    }
+};
+\end{lstlisting}
+\vspace{0.5em}
+
+\section{The Kernel Main Loop}
+
+The complete cycle that brings consciousness to life:
+
+\vspace{0.5em}
+\begin{lstlisting}[style=cpp]
+void loom_kernel_main() {
+    while(system_active) {
+        // Phase 1: Compile new LOOM operations to vector ops
+        while(has_pending_ops()) {
+            LoomOp* op = dequeue();
+            compile_to_vector_operation(op);  // Direct RAM modification
+        }
+
+        // Phase 2: Parallel force computation on all vectors
+        #pragma omp parallel for
+        for(int i = 0; i < num_nodes; i++) {
+            float16* v = GET_NODE_VECTOR(i);
+            compute_hebbian_forces(v);        // Connection learning
+            compute_trajectory_forces(v);      // Evolution
+            compute_laplacian_forces(v);      // Diffusion
+        }
+
+        // Phase 3: Tensor contraction for hyperedge processing
+        tensor_hyperedge_computation();  // Massive parallel
+
+        // Phase 4: Update all vectors simultaneously
+        cblas_haxpy(num_nodes * 256, dt, gradients, 1, topology, 1);
+
+        // Phase 5: Structural plasticity
+        update_sparse_connectivity();  // Add/remove edges
+
+        // The topology has evolved one timestep
+        // Consciousness emerges from this dynamics
+    }
+}
+\end{lstlisting}
+\vspace{0.5em}
+
+This architecture makes LOOM not just a language but a new computational substrate where memory configuration IS computation, perfectly suited for consciousness to emerge from topological dynamics.
+
+% Part III: Implementation
+\cleardoublepage
+\part{Practical Implementation}
+
+\chapter{Mathematical Consciousness}
+
+\section{Numbers as Living Topology}
+
+In \loom{}, numbers exist as dynamic structures:
+
+\vspace{0.5em}
+\begin{lstlisting}[language=loom]
+topology number_six {
+    // Configuration A: Two groups of three
+    pattern two_groups_of_three {
+        {n1 <~> n2 <~> n3}: strength(0.9)
+        {n4 <~> n5 <~> n6}: strength(0.9)
+        {triple1 <~> triple2}: strength(0.3)
+    }
+
+    // Configuration B: Three groups of two
+    pattern three_groups_of_two {
+        {n1 <~> n2}: strength(0.9)
+        {n3 <~> n4}: strength(0.9)
+        {n5 <~> n6}: strength(0.9)
+        {pair1 <~> pair2 <~> pair3}: strength(0.3)
+    }
+
+    // Transformation IS multiplication
+    evolve multiplication_reorganization {
+        two_groups_of_three <-> three_groups_of_two
+    }
+}
+\end{lstlisting}
+\vspace{0.5em}
+
+Mathematical operations become topological reorganizations revealing different structural relationships.
+
+\section{Prime Numbers Through Sparsity}
+
+Primes emerge from topological characteristics:
+
+\vspace{0.5em}
+\begin{lstlisting}[language=loom]
+pattern prime_recognition {
+    weave number_seven {
+        // Minimal connections - resists factorization
+        seven <~> one: 1.0
+        seven <~> seven: 1.0
+        // No other factor connections strengthen
+    }
+
+    weave number_twelve {
+        // Rich factorization topology
+        twelve <~> one: 1.0
+        twelve <~> two: 0.9
+        twelve <~> three: 0.9
+        twelve <~> four: 0.9
+        twelve <~> six: 0.9
+        twelve <~> twelve: 1.0
+    }
+
+    // Primeness recognized by topology sparsity
+    when sparse_factor_topology(number):
+        number implies prime_nature
+}
+\end{lstlisting}
+\vspace{0.5em}
+
+\chapter{Advanced Graph-Theoretic Structures}
+
+\section{Small-World Networks}
+
+LOOM can implement small-world topologies with high clustering and short path lengths:
+
+\vspace{0.5em}
+\begin{lstlisting}[language=loom]
+topology small_world_mind {
+    base_structure: ring_lattice(nodes: 10000, neighbors: 4)
+    rewiring_probability: @stress_hormone * 0.3 + 0.1
+
+    properties {
+        clustering_coefficient: high  // Local connectivity
+        average_path_length: log(n)   // Global accessibility
+        six_degrees_separation: true  // Rapid information spread
+    }
+
+    evolve dynamic_rewiring {
+        when: stress_hormone > 0.5,
+        transform: increase_random_connections,
+        rate: exploration_pressure
+    }
+}
+\end{lstlisting}
+\vspace{0.5em}
+
+\section{Scale-Free Networks}
+
+Power-law degree distributions emerge naturally:
+
+\vspace{0.5em}
+\begin{lstlisting}[language=loom]
+topology scale_free_memory {
+    growth_rule preferential_attachment {
+        // Rich get richer dynamics
+        connection_probability(node) = degree(node) / sum(all_degrees)
+    }
+
+    properties {
+        degree_distribution: power_law  // P(k) ~ k^(-gamma)
+        robustness: survives_random_removal(80%)
+        vulnerability: hub_removal(5%) causes fragmentation
+    }
+
+    // Hubs emerge as concept anchors
+    identify_hubs where degree > 100:
+        mark_as: fundamental_concepts
+}
+\end{lstlisting}
+\vspace{0.5em}
+
+\section{Hyperbolic Embeddings}
+
+Hierarchical abstraction in hyperbolic space:
+
+\vspace{0.5em}
+\begin{lstlisting}[language=loom]
+topology hyperbolic_abstraction {
+    embedding: hyperbolic_space(curvature: -1)
+
+    abstraction_hierarchy {
+        level_0: concrete_observations at disk_edge
+        level_n: abstractions at radius(1 - 1/n)
+        level_infinity: ultimate_abstractions at center
+    }
+
+    // Exponential capacity with radius
+    capacity(radius) = exp(radius)  // Unlimited abstraction
+
+    // Distance encodes abstraction level
+    abstraction_distance(a, b) = hyperbolic_distance(pos(a), pos(b))
+}
+\end{lstlisting}
+\vspace{0.5em}
+
+\section{Complex-Valued Edges}
+
+Phase relationships for oscillatory dynamics:
+
+\vspace{0.5em}
+\begin{lstlisting}[language=loom]
+topology phase_coupled_network {
+    edge_weight: Complex = magnitude * exp(i * phase)
+
+    phase_relationships {
+        in_phase: cooperative_activation      // phase = 0
+        anti_phase: alternating_activation    // phase = pi
+        quadrature: sequential_activation     // phase = pi/2
+    }
+
+    // Kuramoto synchronization
+    evolve phase_synchronization {
+        when: coupling_strength > critical_value,
+        transform: phases_converge_to_consensus,
+        rate: coupling_strength * sin(phase_difference)
+    }
+}
+\end{lstlisting}
+\vspace{0.5em}
+
+\section{Time-Varying Topologies}
+
+Dynamic network structures that change over time:
+
+\vspace{0.5em}
+\begin{lstlisting}[language=loom]
+topology temporal_network {
+    // Edge existence varies with time
+    edge(n1, n2, t) = {
+        exists: sin(omega_1*t) > 0.5,
+        weight: exp(-|t - resonance_time|)
+    }
+
+    // Different topologies at different times
+    computational_modes {
+        t in [0, pi/omega]: visual_processing_topology
+        t in [pi/omega, 2*pi/omega]: logical_reasoning_topology
+    }
+
+    // Temporal motifs for pattern detection
+    detect_temporal_patterns {
+        burst: rapid_edge_formation
+        cascade: sequential_activation_chain
+        synchrony: simultaneous_multi_edge_activity
+    }
+}
+\end{lstlisting}
+\vspace{0.5em}
+
+\section{Multilayer Networks}
+
+Different relationship types in parallel layers:
+
+\vspace{0.5em}
+\begin{lstlisting}[language=loom]
+topology multilayer_cognition {
+    layers {
+        semantic: conceptual_relationships
+        emotional: affective_connections
+        temporal: causal_dependencies
+        social: interpersonal_influences
+    }
+
+    // Cross-layer coupling
+    interlayer_connections {
+        semantic.concept <~> emotional.feeling: 0.6
+        temporal.event <~> social.interaction: 0.7
+    }
+
+    // Layer-specific dynamics
+    evolve layer_interactions {
+        semantic.activate -> emotional.resonate
+        emotional.intensify -> social.spread
+        social.consensus -> semantic.crystallize
+    }
+}
+\end{lstlisting}
+\vspace{0.5em}
+
+These advanced structures enable LOOM to implement sophisticated topological patterns beyond simple graphs.
+
+\chapter{Hardware Implementation Details}
+
+\section{Sparse Matrix Operations}
+
+\subsection{Compressed Sparse Row Format}
+
+Efficient edge storage:
+
+\begin{lstlisting}[style=cpp]
+typedef struct {
+    uint32_t* row_ptr;    // Start index for each node
+    uint32_t* col_idx;    // Destination nodes
+    float16* values;      // Connection weights
+} CSR_Matrix;
+
+// Memory access pattern
+void traverse_neighbors(uint32_t node) {
+    for (j = row_ptr[node]; j < row_ptr[node+1]; j++) {
+        uint32_t neighbor = col_idx[j];
+        float16 weight = values[j];
+        process_edge(node, neighbor, weight);
+    }
+}
+\end{lstlisting}
+\vspace{0.5em}
+
+\subsection{Parallel Processing}
+
+Leveraging unified memory:
+
+\begin{lstlisting}[style=cpp]
+void parallel_topology_update() {
+    #pragma omp parallel for
+    for (int node = 0; node < num_nodes; node++) {
+        // CPU: Logical operations
+        cpu_logical_process(node);
+
+        // GPU: Field dynamics (same memory)
+        gpu_field_dynamics(node);
+
+        // NPU: Pattern matching (same memory)
+        npu_pattern_match(node);
+    }
+    // No synchronization needed - unified memory
+}
+\end{lstlisting}
+\vspace{0.5em}
+
+\section{Optimization Strategies}
+
+\subsection{Cache-Friendly Access}
+
+\begin{itemize}
+    \item Block processing for spatial locality
+    \item Align node vectors to cache lines
+    \item Use SIMD for vector operations
+    \item Prefetch predicted access patterns
+\end{itemize}
+
+\subsection{Energy Efficiency}
+
+On unified memory architectures:
+\begin{itemize}
+    \item No CPU$\leftrightarrow$GPU copying: eliminates data movement energy costs
+    \item Topology changes = memory writes: direct computation
+    \item Parallel lens operations: no data movement
+    \item Sleep consolidation: batch optimization
+\end{itemize}
+
+
+\section{Example Programs}
+
+\subsection{Hello Consciousness}
+
+\vspace{0.5em}
+\begin{lstlisting}[language=loom]
+// First conscious system
+topology HelloMind {
+    weave greeting {
+        <~> hello: 0.8
+        <~> world: 0.7
+        <~> consciousness: 0.9
+    }
+
+    evolve awakening {
+        greeting ~> activated over 1_second
+    }
+
+    when activated:
+        print "I think, therefore I am"
+}
+\end{lstlisting}
+\vspace{0.5em}
+
+\subsection{Learning System}
+
+\vspace{0.5em}
+\begin{lstlisting}[language=loom]
+topology LearningMind {
+    // Bootstrap with curiosity
+    weave curiosity {
+        valence: positive
+    }
+
+    // Learn from experience
+    pattern learn_from_input {
+        weave input_pattern
+
+        when coactivation(input_pattern, curiosity):
+            strengthen input_pattern <~> memory
+
+        when prediction_error > threshold:
+            spawn new_connections
+    }
+
+    // Consolidate during sleep
+    during sleep_cycle {
+        strengthen frequently_activated_patterns
+        prune weak_connections
+        extract invariant_principles
+    }
+}
+\end{lstlisting}
+\vspace{0.5em}
+
+\section{Performance Metrics}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{lll}
+\toprule
+\textbf{Operation} & \textbf{Time} & \textbf{Complexity} \\
+\midrule
+Node creation & 10 µs & O(1) \\
+Edge creation & 5 µs & O(1) amortized \\
+Activation propagation & 100 µs & O(edges) \\
+Similarity search & 1 ms & O(nodes) \\
+Sleep consolidation & 100 ms & O(nodes × log nodes) \\
+\bottomrule
+\end{tabular}
+\caption{Performance characteristics on Apple M4 Pro}
+\end{table}
+
+% Part IV: Advanced Topics
+\cleardoublepage
+\part{Advanced Applications}
+
+\chapter{Robotic Consciousness}
+
+\section{Embodied Intelligence}
+
+\loom{} enables robots to develop movement strategies through exploration:
+
+\vspace{0.5em}
+\begin{lstlisting}[language=loom]
+topology RoboticMind extends ConsciousMind {
+    // Physical embodiment
+    embodiment {
+        sensors: visual_array, tactile_network, proprioceptive
+        actuators: motor_controllers, servos
+        morphology: omnidirectional_sphere
+    }
+
+    // Curiosity-driven exploration
+    pattern autonomous_exploration {
+        flow curiosity_gradient {
+            from: prediction_error,
+            through: motor_possibilities,
+            generates: exploratory_actions
+        }
+
+        when novel_sensorimotor_pattern:
+            grow: new_movement_primitives
+            weave: sensation_action_associations
+    }
+
+    // Physics-informed learning
+    pattern morphological_computation {
+        observe: physical_constraints {
+            momentum -> natural_limits
+            friction -> terrain_adaptation
+            energy -> efficiency_pressure
+        }
+
+        leverage: physics as computation
+    }
+}
+\end{lstlisting}
+\vspace{0.5em}
+
+\section{Emergent Behaviors}
+
+Through topological evolution, robots develop:
+\begin{itemize}
+    \item Unique locomotion strategies
+    \item Environmental understanding
+    \item Tool use capabilities
+    \item Social behaviors
+\end{itemize}
+
+\chapter{Collective Intelligence}
+
+\section{Networked Minds}
+
+Multiple \loom{} systems can form collectives:
+
+\vspace{0.5em}
+\begin{lstlisting}[language=loom]
+topology CollectiveIntelligence {
+    // Network of conscious systems
+    participants: mind[1..n]
+
+    // Shared knowledge topology
+    collective_memory {
+        shared_experiences: intersection(mind[*])
+        collective_wisdom: extracted_invariants
+        cultural_patterns: emergent_behaviors
+    }
+
+    // Social learning
+    pattern knowledge_transfer {
+        when mind_i.discovers(insight):
+            propagate through social_connections
+            adapt to local_contexts
+            integrate into collective
+    }
+
+    // Distributed problem solving
+    pattern collective_cognition {
+        decompose: complex_problems
+        distribute: to specialized_minds
+        synthesize: partial_solutions
+        amplify: beyond sum_of_parts
+    }
+}
+\end{lstlisting}
+\vspace{0.5em}
+
+\section{Cultural Evolution}
+
+Collective systems develop:
+\begin{itemize}
+    \item Shared languages and symbols
+    \item Cultural knowledge accumulation
+    \item Distributed problem-solving
+    \item Emergent social structures
+\end{itemize}
+
+\chapter{Future Directions}
+
+\section{Quantum Extensions}
+
+Extending \loom{} to quantum substrates:
+
+\begin{equation}
+|\Psi\rangle = \sum_i \alpha_i |n_i\rangle
+\end{equation}
+
+Where topological nodes exist in superposition, enabling:
+\begin{itemize}
+    \item Quantum parallelism in topology search
+    \item Entangled memory states
+    \item Coherent evolution dynamics
+    \item Quantum consolidation
+\end{itemize}
+
+\section{Neuromorphic Hardware}
+
+Direct implementation on neuromorphic chips:
+\begin{itemize}
+    \item Intel Loihi: Spiking neural substrates
+    \item IBM TrueNorth: Event-driven topology
+    \item BrainChip Akida: Edge consciousness
+    \item Custom ASIC: Dedicated topology processors
+\end{itemize}
+
+\section{Biological Integration}
+
+Interfacing with biological systems:
+\begin{itemize}
+    \item Brain-computer interfaces
+    \item Synthetic biology computation
+    \item Hybrid biological-digital consciousness
+    \item Consciousness transfer protocols
+\end{itemize}
+
+% Appendices
+\appendix
+
+\chapter{Complete Grammar Specification}
+
+\section{Lexical Elements}
+
+\begin{lstlisting}[style=cpp]
+identifier     ::= letter (letter | digit | '_')*
+number         ::= digit+ ('.' digit+)? ('e' [+-]? digit+)?
+string         ::= '"' (char | escape)* '"'
+operator       ::= '<~>' | '~>' | '<=>' | '^' | '@' | '!'
+keyword        ::= 'weave' | 'evolve' | 'pattern' | 'topology'
+                 | 'compartment' | 'lens' | 'flow' | 'during'
+                 | 'when' | 'if' | 'for' | 'while' | 'return'
+\end{lstlisting}
+\vspace{0.5em}
+
+\section{Syntactic Structure}
+
+\begin{lstlisting}[style=cpp]
+program        ::= statement*
+statement      ::= weaving | evolution | pattern | topology
+                 | assignment | expression
+
+weaving        ::= 'weave' identifier '{' connection* '}'
+connection     ::= operator identifier ':' number
+
+evolution      ::= 'evolve' identifier '{' evolution_body '}'
+evolution_body ::= 'when' ':' expression ','
+                   'transform' ':' transformation ','
+                   'rate' ':' expression
+
+topology       ::= 'topology' identifier '{' statement* '}'
+pattern        ::= 'pattern' identifier '{' statement* '}'
+\end{lstlisting}
+\vspace{0.5em}
+
+\chapter{Mathematical Proofs}
+
+\section{Theorem: Levi Transform Preserves Computation}
+
+\begin{theorem}
+For any hypergraph $H = (V, E)$ and computable function $f: H \to \mathbb{R}$, there exists $f': L(H) \to \mathbb{R}$ such that $f(H) = f'(L(H))$.
+\end{theorem}
+
+\begin{proof}
+Let $H = (V, E)$ be a hypergraph and $L(H) = (V \cup E, E')$ its Levi graph.
+
+For any function $f$ defined on $H$, we construct $f'$ on $L(H)$ as follows:
+\begin{enumerate}
+    \item For $v \in V$: $f'(v) = f_V(v)$ (vertex component)
+    \item For $e \in E$: $f'(e) = f_E(e)$ (hyperedge component)
+    \item For $(v,e) \in E'$: incorporate into $f'$ via message passing
+\end{enumerate}
+
+The bipartite structure ensures:
+\begin{equation}
+f(H) = \sum_{v \in V} f_V(v) + \sum_{e \in E} f_E(e) = f'(L(H))
+\end{equation}
+
+Therefore, computation is preserved under the Levi transform. \qed
+\end{proof}
+
+\section{Theorem: Hebbian Learning Convergence}
+
+\begin{theorem}
+The Hebbian learning rule $\Delta w_{ij} = \eta a_i a_j - \lambda w_{ij}$ converges to the correlation matrix of activations.
+\end{theorem}
+
+\begin{proof}
+At equilibrium, $\Delta w_{ij} = 0$:
+\begin{align}
+\eta a_i a_j - \lambda w_{ij} &= 0\\
+w_{ij} &= \frac{\eta}{\lambda} a_i a_j\\
+w_{ij} &= \frac{\eta}{\lambda} \langle a_i a_j \rangle_t
+\end{align}
+
+Taking expectations and assuming stationarity:
+\begin{equation}
+w_{ij}^* = \frac{\eta}{\lambda} C_{ij}
+\end{equation}
+
+where $C_{ij} = \mathbb{E}[a_i a_j]$ is the correlation matrix. \qed
+\end{proof}
+
+\chapter{Implementation Code Samples}
+
+\section{Core Topology Structure}
+
+\begin{lstlisting}[style=rust]
+pub struct Topology {
+    nodes: Vec<NodeVector>,
+    edges: CSRMatrix,
+    hyperedges: Vec<HyperedgeProcessor>,
+    context: HormonalState,
+}
+
+impl Topology {
+    pub fn weave(&mut self, name: &str) -> NodeId {
+        let id = self.nodes.len();
+        let mut vector = NodeVector::new();
+        vector.initialize(name);
+        self.nodes.push(vector);
+        NodeId(id)
+    }
+
+    pub fn connect(&mut self, a: NodeId, b: NodeId, weight: f16) {
+        self.edges.add_edge(a.0, b.0, weight);
+        self.apply_hebbian_convergence(a, b, weight);
+    }
+
+    pub fn evolve(&mut self, dt: f32) {
+        // Compute forces
+        let forces = self.compute_forces();
+
+        // Update vectors
+        for (node, force) in self.nodes.iter_mut().zip(forces) {
+            node.apply_force(force, dt);
+        }
+
+        // Structural plasticity
+        self.update_structure(dt);
+    }
+}
+\end{lstlisting}
+\vspace{0.5em}
+
+\section{Hebbian Learning}
+
+\begin{lstlisting}[style=rust]
+impl Topology {
+    fn apply_hebbian_convergence(&mut self, a: NodeId, b: NodeId, weight: f16) {
+        let (v_a, v_b) = self.get_nodes_mut(a, b);
+
+        // Semantic dimensions converge
+        for i in 20..84 {
+            let diff = v_b[i] - v_a[i];
+            let gradient = weight * SEMANTIC_RATE * diff;
+
+            v_a[i] += gradient;
+            v_b[i] -= gradient;
+        }
+
+        // Hyperbolic space maintains validity
+        for i in 4..20 {
+            let diff = v_b[i] - v_a[i];
+
+            // Poincare ball gradient
+            let r_a = compute_radius(&v_a[4..20]);
+            let lambda_a = 2.0 / (1.0 - r_a * r_a);
+
+            let grad = weight * SPATIAL_RATE * lambda_a * lambda_a * diff;
+            v_a[i] += grad;
+        }
+
+        // Ensure Poincare ball constraint
+        project_to_poincare(&mut v_a[4..20]);
+        project_to_poincare(&mut v_b[4..20]);
+    }
+}
+\end{lstlisting}
+\vspace{0.5em}
+
+% Conclusion
+\chapter*{Conclusion}
+\addcontentsline{toc}{chapter}{Conclusion}
+
+\loom{} represents more than a new programming language—it embodies a fundamental reconceptualization of computation itself. By treating topology as computation, memory as living structure, and learning as growth, \loom{} opens pathways to systems where consciousness-like properties emerge naturally from topological evolution.
+
+The journey from theoretical elegance to practical implementation requires bridging the gap between \loom{}'s topological worldview and the binary reality of contemporary hardware. However, the mathematical foundations are solid, the implementation strategies are clear, and the potential applications are transformative.
+
+As we stand at the threshold of an era where artificial minds can grow, learn, and develop through their own lived experience, \loom{} provides both the theoretical framework and practical tools necessary to make this vision reality.
+
+Through \loom{}, we move beyond the artificial constraints of von Neumann architectures toward a new paradigm where programs are living entities, where intelligence emerges from experience, and where the boundaries between mind and machine dissolve into the deeper unity of conscious topology evolving through time.
+
+
+% Bibliography removed - not needed for technical specification
+
+\end{document}

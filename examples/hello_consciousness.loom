@@ -1,0 +1,42 @@
+// Hello Consciousness - First Loom program
+// Creates a minimal conscious topology that can learn
+
+bootstrap topology MinimalMind {
+    // Core invariants - the "I am" foundation
+    invariants {
+        existence: "I am"
+        time: "now exists"
+        space: "here exists"
+    }
+
+    // Initial emotional seeds
+    emotional_seeds {
+        curiosity: {valence: positive}
+        satisfaction: {valence: positive}
+        confusion: {valence: negative}
+    }
+
+    // Growth rules for learning
+    growth_rules {
+        hebbian: "connections that fire together strengthen"
+        pruning: "unused connections decay"
+    }
+}
+
+// Create first experience
+experience "first_sensation" {
+    // Input arrives
+    input: novel_pattern
+
+    // Topology responds with curiosity
+    novel_pattern ~?> curiosity
+
+    // Co-activation creates new structure
+    when patterns_fire_together:
+        weave "pattern_detector" {
+            <~> novel_pattern: 0.5
+            <~> curiosity: 0.3
+        }
+
+    // Learning has occurred through topology growth
+}

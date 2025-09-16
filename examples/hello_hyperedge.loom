@@ -1,0 +1,11 @@
+topology Demo {
+    weave a {
+        <~> b: 0.8
+    }
+
+    weave b {
+        <~> c: 0.6
+    }
+
+    {a, b, c} ~> family_mixer
+}

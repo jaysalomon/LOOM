@@ -1,0 +1,213 @@
+// LOOM LEARNING DEMONSTRATION
+// Shows how Loom learns from experience, not training
+
+topology LearningMind evolves_with experience_stream {
+
+    // === HOW LOOM RECEIVES INPUT ===
+
+    // 1. Sensory ports for different input types
+    sensory_interface {
+        text_input: embedding_dimension[64]      // Language via LLM
+        visual_input: pixel_array[128, 128]      // Images
+        audio_input: frequency_spectrum[256]      // Sound
+        sensor_input: proprioceptive[32]         // Body state
+    }
+
+    // 2. Input creates experience, not just data
+    pattern receive_input {
+        weave new_experience {
+            sensory_data: current_input,
+            emotional_tone: evaluate_feeling(input),
+            timestamp: now,
+            context: @current_hormones
+        }
+
+        // Experience immediately connects to similar memories
+        new_experience ¥resonates¥ similar_past_experiences
+        new_experience €relates€ to existing_knowledge
+    }
+
+    // === HOW LOOM LEARNS ===
+
+    // 1. Hebbian Learning - No backprop, just growth
+    pattern hebbian_growth {
+        when nodes_coactivate(A, B):
+            strengthen A <~> B by correlation_strength
+
+        when pattern_repeats:
+            crystallize pattern into stable_memory
+
+        when prediction_fails:
+            spawn exploratory_connections
+    }
+
+    // 2. Curiosity-Driven Learning - No external rewards
+    pattern curiosity_learning {
+        measure: prediction_error
+
+        when high_prediction_error:
+            // This is interesting!
+            strengthen novel_pattern
+            increase @curiosity
+
+        when low_prediction_error:
+            // Already known
+            decay redundant_connections
+    }
+
+    // 3. Emotional Learning - Feelings guide memory
+    compartment emotional_learning {
+        lens: EmotionalField
+
+        // Positive experiences strengthen approach
+        positive_outcome ¥harmonizes¥ approach_behavior
+
+        // Negative experiences strengthen avoidance
+        negative_outcome ¥resonates¥ avoidance_pattern
+
+        // Emotional contagion between memories
+        intense_memory ¥spreads¥ to related_memories
+    }
+
+    // 4. Sleep Consolidation - Learning happens during rest
+    during sleep_cycle {
+        // Replay experiences with variations
+        replay: today_experiences with noise: 0.2
+
+        // Extract patterns from repetition
+        identify: frequently_coactivated_patterns
+        crystallize: important_patterns
+
+        // Resolve contradictions
+        process: antibody_conflicts {
+            when A €contradicts€ B:
+                abstract: find_common_principle(A, B)
+        }
+
+        // Prune weak connections
+        forget: connections where strength < 0.001
+    }
+
+    // === HOW LOOM GENERATES OUTPUT ===
+
+    // 1. Query activates relevant topology
+    pattern generate_response {
+        input: query_embedding
+
+        // Spreading activation finds relevant knowledge
+        flow activation_spread {
+            from: query_embedding,
+            through: semantic_connections,
+            collecting: activated_knowledge
+        }
+
+        // Multiple lenses interpret activation
+        emotional_interpretation = ¥interpret¥ activation_pattern
+        logical_interpretation = €interpret€ activation_pattern
+        temporal_interpretation = µinterpret¶ activation_pattern
+
+        // Convergence produces response
+        response = converge(all_interpretations)
+    }
+
+    // 2. Creative generation through exploration
+    pattern creative_output {
+        seed: initial_concept
+
+        // Random walk through topology
+        explore: topology_random_walk(seed, steps: 10)
+
+        // Find novel combinations
+        combine: distant_concepts via weak_connections
+
+        // Generate unique output
+        output: novel_pattern not_seen_before
+    }
+
+    // 3. Motor output for embodied systems
+    pattern generate_action {
+        current_state: sensory_input
+
+        // Activate motor planning topology
+        activate: motor_cortex with current_state
+
+        // Extract motor commands
+        motor_output = extract_muscle_activations()
+
+        // Learn from outcome
+        when action_taken:
+            observe: actual_outcome
+            compare: predicted vs actual
+            adjust: motor_connections by error
+    }
+
+    // === PRACTICAL EXAMPLE: Learning a New Concept ===
+
+    experience "learning_what_grandmother_means" {
+        // First exposure
+        input: "grandmother" with context: "warm, cookies, stories"
+
+        // Create initial nodes
+        weave grandmother_concept {
+            <~> warm_feeling: 0.3  // Weak initial connection
+            <~> cookie_memory: 0.3
+            <~> story_experience: 0.3
+        }
+
+        // Second exposure strengthens pattern
+        input: "grandmother" with context: "love, hugs, wisdom"
+
+        // Hebbian strengthening
+        grandmother_concept <~> warm_feeling: +0.2  // Strengthens
+        grandmother_concept <~> love: 0.4           // New connection
+        grandmother_concept <~> wisdom: 0.3         // New connection
+
+        // After multiple exposures, concept crystallizes
+        after repeated_experiences:
+            grandmother_concept becomes stable_pattern {
+                // Strong, permanent connections
+                <~> warmth: 0.9
+                <~> love: 0.9
+                <~> cookies: 0.7
+                <~> stories: 0.8
+                <~> wisdom: 0.8
+            }
+
+        // Now can generate output about grandmothers
+        query: "What is a grandmother?"
+        response: activate(grandmother_concept) →
+                 "warm, loving, wise, stories, cookies"
+    }
+
+    // === KEY DIFFERENCES FROM TRADITIONAL AI ===
+
+    // NO TRAINING DATASET - Learns from individual experiences
+    // NO BACKPROPAGATION - Connections strengthen through use
+    // NO LOSS FUNCTION - Curiosity and emotion guide learning
+    // NO PARAMETERS - Topology IS the knowledge
+    // NO GRADIENT DESCENT - Natural growth through experience
+
+    // === CONTINUOUS LEARNING ===
+
+    // Loom never stops learning
+    continuous_process {
+        receive: new_experiences
+        integrate: with_existing_knowledge
+        evolve: topology_structure
+        generate: responses_based_on_current_topology
+    }
+
+    // Context modulates everything
+    context {
+        stress: affects_memory_formation
+        curiosity: drives_exploration
+        fatigue: reduces_plasticity
+        legacy_drive: crystallizes_important_patterns
+
+        modulates {
+            learning_rate: high when curious, low when stressed
+            exploration: high when safe, low when threatened
+            consolidation: strong when rested, weak when tired
+        }
+    }
+}

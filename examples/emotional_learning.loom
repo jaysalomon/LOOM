@@ -1,0 +1,89 @@
+// Emotional Learning System
+// Demonstrates multi-lens processing and emotional resonance
+
+topology EmotionalMind evolves_with hormonal_context {
+    // Emotional compartment processes feelings
+    compartment emotional {
+        lens: EmotionalInterpretation
+        operators: ¥resonate¥, ¥harmonize¥
+
+        // Emotional memory formation
+        pattern emotional_memory {
+            weave experience {
+                timestamp: now,
+                valence: evaluate_feeling(input),
+                intensity: activation_level
+            }
+
+            // Emotions resonate with similar past experiences
+            experience ¥resonates¥ past_emotions where valence_similar
+
+            // Emotional contagion between connected experiences
+            flow emotional_spreading {
+                from: intense_emotions,
+                through: ¥resonance¥ connections,
+                modulated_by: @empathy_level
+            }
+        }
+    }
+
+    // Logical compartment for reasoning
+    compartment logical {
+        lens: LogicalReasoning
+        operators: €implies€, €contradicts€
+
+        // Check emotional consistency
+        pattern emotional_logic_check {
+            when emotion €contradicts€ belief:
+                !{emotion, belief} {
+                    resolution: AbstractToInvariant,
+                    priority: high when @stress > 0.7,
+                    preserve: core_values
+                }
+        }
+    }
+
+    // Learning through emotional experience
+    experience "encountering_fear" {
+        input: threatening_stimulus
+
+        // Immediate emotional response
+        threatening_stimulus ¥resonates¥ fear_response
+
+        // Strengthen fear associations
+        evolve fear_learning {
+            when: fear_activated,
+            transform: neutral_associations ~> fear_associations,
+            rate: @adrenaline * learning_rate
+        }
+
+        // But logic can modulate
+        if threat €implies€ false_alarm:
+            fear_response ↝ baseline over 30_seconds
+    }
+
+    // Hormonal context affects all processing
+    context {
+        stress: sensed_threat ~> 0.9 over 100ms
+        calm: meditation_state ~> 0.1 over 5_minutes
+        empathy: social_connection * 0.7
+
+        modulates {
+            ¥emotional_spreading¥: amplify when empathy > 0.6,
+            €logical_reasoning€: dampen when stress > 0.8,
+            learning_rate: optimal when calm < 0.3
+        }
+    }
+
+    // Sleep consolidation for emotional integration
+    during sleep_cycle {
+        // Process emotional conflicts
+        resolve: flagged!{emotion €contradicts€ *}
+
+        // Strengthen emotionally significant patterns
+        emotional.consolidate where ¥intensity¥ > 0.7
+
+        // Extract emotional wisdom
+        abstract: repeated_emotional_patterns into emotional_schemas
+    }
+}

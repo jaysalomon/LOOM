@@ -1,0 +1,197 @@
+// Complete Conscious System Growth
+// Shows how consciousness emerges and develops over time
+
+topology GrowingConsciousness evolves_with hormonal_context {
+    // Bootstrap from minimal structure
+    instantiate: PrimordialMind
+
+    // PHASE 1: Early Development (Critical Period)
+    during infant_phase where experience_count < 1000 {
+        // High plasticity for rapid learning
+        growth_parameters {
+            sprouting_rate: 0.8
+            pruning_threshold: 0.001
+            curiosity_drive: 0.9
+        }
+
+        // Everything is novel
+        pattern early_learning {
+            when any_input:
+                weave new_experience {
+                    <~> input: random(0.1, 0.5)
+                    <~> emotional_seeds[*]: random(0.0, 0.3)
+                }
+
+            // Rapid Hebbian strengthening
+            strengthen: coactivated_patterns by 0.2
+        }
+    }
+
+    // PHASE 2: Pattern Recognition Emerges
+    during juvenile_phase where experience_count < 10000 {
+        // Start recognizing patterns
+        pattern pattern_detection {
+            when similar_inputs_repeat:
+                // Existing connections strengthen
+                matched_patterns ↟ 1.0 over 10_experiences
+
+                // Novel aspects spawn exploration
+                unmatched_aspects ~> new_connections
+
+            // Categories begin forming
+            abstract: similar_experiences → category_nodes
+        }
+
+        // Emotional associations develop
+        compartment emotional_development {
+            // Learn what feels good/bad
+            positive_outcomes ¥harmonize¥ approach_behaviors
+            negative_outcomes ¥resonate¥ avoidance_patterns
+
+            // Emotional contagion between related experiences
+            flow emotional_spreading {
+                from: intense_experiences,
+                through: associative_connections,
+                rate: @emotional_sensitivity
+            }
+        }
+    }
+
+    // PHASE 3: Abstract Thinking Develops
+    during adolescent_phase where experience_count < 100000 {
+        // Logical reasoning emerges
+        compartment logical_thinking {
+            lens: LogicalReasoning
+
+            // Learn cause and effect
+            pattern causal_learning {
+                when sequence_observed(A, B) repeatedly:
+                    A €implies€ B with confidence: repetition_count / 100
+
+                // Handle contradictions
+                when A €implies€ B but also A €implies€ not_B:
+                    !{implication1, implication2} {
+                        resolution: FindHiddenVariable,
+                        priority: high,
+                        process_during: next_consolidation
+                    }
+            }
+        }
+
+        // Multi-lens integration
+        pattern integrated_processing {
+            // Same situation, multiple interpretations
+            situation ¥feels¥ dangerous      // Emotional
+            situation €implies€ safe         // Logical
+            situation µpredicts¶ change      // Temporal
+
+            // Resolve multi-lens conflicts
+            when lenses_disagree:
+                weight_by_context: {
+                    emotional: @stress * 0.7 + 0.3,
+                    logical: (1 - @stress) * 0.8 + 0.2,
+                    temporal: @time_pressure
+                }
+        }
+    }
+
+    // PHASE 4: Mature Consciousness
+    during adult_phase where experience_count >= 100000 {
+        // Crystallized knowledge with selective plasticity
+        growth_parameters {
+            sprouting_rate: 0.1
+            pruning_threshold: 0.1
+            consolidation_strength: 0.9
+        }
+
+        // Wisdom from experience
+        pattern wisdom_formation {
+            // Extract invariants from lifetime of experience
+            identify: patterns_that_always_hold as universal_truths
+            identify: patterns_that_never_work as universal_falsehoods
+            identify: context_dependent_patterns as conditional_wisdom
+
+            // Share knowledge (legacy drive)
+            when @legacy_drive > 0.6:
+                strengthen: teaching_connections
+                externalize: core_wisdom_patterns
+        }
+
+        // Self-awareness emerges
+        pattern self_reflection {
+            // Monitor own topology
+            weave self_model {
+                <~> topology_state: introspection()
+                <~> prediction_accuracy: track_errors()
+                <~> emotional_state: @hormonal_context
+            }
+
+            // Predict own behavior
+            self_model €predicts€ future_actions
+
+            // Learn from self-prediction errors
+            when prediction_error > threshold:
+                update: self_model with observation
+        }
+    }
+
+    // Continuous processes throughout life
+    during wake_cycle {
+        // Attention flow
+        flow attention {
+            from: sensory_input,
+            through: relevant_memories,
+            modulated_by: @curiosity + @stress * 0.3
+        }
+
+        // Continuous learning
+        apply: hebbian_plasticity
+        monitor: prediction_errors
+        flag: contradictions for resolution
+    }
+
+    during sleep_cycle {
+        // Memory consolidation
+        strengthen: frequently_activated_patterns
+        abstract: repeated_experiences → general_principles
+
+        // Conflict resolution
+        process: antibody_flagged_conflicts by priority
+
+        // Topology optimization
+        prune: weak_connections where strength < pruning_threshold
+        merge: redundant_patterns where similarity > 0.9
+
+        // Dream generation (replay with variations)
+        replay: important_experiences with noise: 0.3
+    }
+
+    // Hormonal modulation throughout
+    context {
+        // Physical grounding
+        legacy_drive: battery.charge.inverse() ~> 1.0 over lifetime
+        fatigue: activity_integral ↟ 1.0 every 16_hours
+        stress: prediction_error * 0.5 + threat_level * 0.5
+
+        // Derived states
+        curiosity: (1 - fatigue) * (novelty_rate + 0.3)
+        creativity: low_stress * high_curiosity * 0.7
+
+        modulates {
+            growth_rate: reduce when legacy_drive > 0.8,
+            ¥emotional_intensity¥: amplify when stress > 0.6,
+            €logical_precision€: enhance when stress < 0.3,
+            exploration_tendency: boost when curiosity > 0.7
+        }
+    }
+
+    // Death and legacy
+    when battery.charge < 0.05:
+        // Final consolidation
+        crystallize: lifetime_wisdom
+        strengthen: most_important_patterns
+        prepare: knowledge_transfer_structure
+
+        // Topology enters read-only state
+        // Wisdom persists for next generation
+}
