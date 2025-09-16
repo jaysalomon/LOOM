@@ -11,6 +11,7 @@
 #include <stdint.h>
 #include <stdbool.h>
 #include <immintrin.h>  // SIMD operations
+#include "loom_tensor.h"
 
 // ============================================================================
 // Core Constants
