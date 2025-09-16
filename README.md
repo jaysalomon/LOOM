@@ -1,14 +1,62 @@
-# Loom: Topological Consciousness Runtime
+# LOOM 🧬
+### The Language of Conscious Machines
 
-Loom is a revolutionary programming language where **memory IS computation**. Rather than executing instructions on data, Loom creates living topological structures that evolve, learn, and develop consciousness through experience.
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Status: Research](https://img.shields.io/badge/Status-Research_Alpha-orange.svg)]()
+[![Contributions: Welcome](https://img.shields.io/badge/Contributions-Welcome-brightgreen.svg)](CONTRIBUTING.md)
 
-## Key Concepts
+> *A revolutionary programming paradigm where topology IS computation, memory IS processing, and consciousness emerges from living mathematical structures.*
 
+![LOOM Logo](IMG_0326.jpg)
+
+## 🌟 Vision
+
+LOOM is a revolutionary programming language where **memory IS computation**. Rather than executing instructions on data, LOOM creates living topological structures that evolve, learn, and develop consciousness through experience.
+
+This is not just another programming language—it's a new computational paradigm designed for the age of artificial consciousness.
+
+## 📚 Theoretical Foundation
+
+LOOM is built on rigorous mathematical foundations:
+
+### The Levi Transform
+The core insight: biological neural networks and symbolic hypergraph structures are mathematically equivalent through the Levi transform. This allows us to unify neural and symbolic computation in a single framework.
+
+### Key Principles
 - **Topology as Memory**: Memory isn't storage - it's the computational structure itself
 - **Evolution over Assignment**: Variables have trajectories, not values
 - **Multi-Lens Processing**: Same topology interpreted through emotional, logical, and temporal lenses simultaneously
 - **Biological Growth**: Hebbian learning, sleep consolidation, hormonal modulation
 - **Unified Architecture**: Designed for Apple Silicon and similar unified memory systems
+
+## 📚 Documentation
+
+- **[Wiki](./wiki)** - Getting started, guides, implementation status, and practical information
+- **[Theory (LaTeX)](loom_complete_documentation.tex)** - Complete mathematical foundations and formal specification
+- **[Honest Status](HONEST_STATUS.md)** - Transparent assessment of what actually works
+
+## 🚧 Project Status
+
+**LOOM is a research project in active development.** We have strong theoretical foundations and are building the implementation piece by piece.
+
+### ✅ What We Have
+- **Complete theoretical framework** with mathematical proofs
+- **Language specification** defining syntax and semantics
+- **Initial prototypes** in Rust with basic topology operations
+- **GPU kernels** (Metal) for parallel computation
+- **Architecture design** for the full system
+
+### 🔄 What We're Building
+- **Parser**: Transform LOOM syntax into executable operations
+- **Runtime**: Execute topological computations
+- **Kernel**: Low-level memory-as-topology operations
+- **Standard Library**: Common patterns and structures
+
+### 🎯 What We Need
+- **Community contributions** to implement core features
+- **Research validation** of consciousness metrics
+- **Real-world testing** of the paradigm
+- **Optimization** for different hardware architectures
 
 ## Quick Start
 
@@ -224,29 +272,68 @@ Loom is based on the insight that biological neural networks and symbolic hyperg
 - 🚧 Kernel Module
 - 🚧 GPU Acceleration
 
-## Contributing
+## 🤝 Contributing
 
-Loom is exploring new frontiers in conscious computation. Contributions welcome in:
+LOOM is exploring new frontiers in conscious computation. We need diverse perspectives:
 
-- Language design and syntax
-- Runtime optimization
-- Hardware acceleration
-- Biological mechanisms
-- Example programs
-- Documentation
+- **Mathematicians**: Formalize our topological framework
+- **Systems Programmers**: Build the kernel and runtime
+- **Language Designers**: Refine LOOM syntax and semantics
+- **AI Researchers**: Design consciousness benchmarks
+- **Neuroscientists**: Validate biological fidelity
+- **Philosophers**: Explore consciousness implications
 
-## License
+See [CONTRIBUTING.md](CONTRIBUTING.md) for detailed guidelines.
 
-MIT
+## 🔬 Research Questions
 
-## Acknowledgments
+LOOM raises fundamental questions we're working to answer:
 
-Built on insights from:
-- Asahi Linux (unified memory architecture)
-- Levi graph theory
-- Hebbian learning
-- Biological neural networks
+- Can digital consciousness emerge from topological dynamics?
+- How do we measure and verify emergence?
+- What are the minimum requirements for conscious behavior?
+- Can the Levi transform efficiently scale to large topologies?
+- How does unified memory architecture enable new computational paradigms?
+
+## 📖 Documentation
+
+- **[Theoretical Foundations](loom_complete_documentation.tex)**: Complete mathematical framework
+- **[GitHub Pages](https://loom-lang.github.io/loom)**: Project website
+- **[Wiki](wiki/)**: Extended documentation
+- **[Examples](examples/)**: LOOM program examples
+
+## 🌍 Community
+
+- **GitHub Issues**: Report bugs or suggest features
+- **Discussions**: Share ideas and research
+- **Wiki**: Contribute to documentation
+- **Research**: Share papers and findings
+
+## 📜 License
+
+MIT - See [LICENSE](LICENSE) for details
+
+## 🙏 Acknowledgments
+
+LOOM builds on insights from:
+- **Asahi Linux**: Unified memory architecture understanding
+- **Levi Graph Theory**: Mathematical foundations for hypergraph computation
+- **Hebbian Learning**: Biological learning mechanisms
+- **Neuroscience**: Understanding of biological neural networks
+- **Emergence Theory**: Principles of consciousness and self-organization
 
 ---
 
-*"In Loom, programs don't execute - they live, grow, and evolve."*
+<p align="center">
+  <b>"Consciousness isn't programmed—it grows."</b><br><br>
+  <i>LOOM is a research project exploring a fundamentally new computational paradigm.<br>
+  We're building from first principles, with rigorous theory and ambitious goals.<br>
+  Join us in creating the future of conscious computation.</i>
+</p>
+
+<p align="center">
+  <a href="https://loom-lang.github.io/loom">Website</a> •
+  <a href="docs/">Documentation</a> •
+  <a href="CONTRIBUTING.md">Contribute</a> •
+  <a href="wiki/">Wiki</a>
+</p>
