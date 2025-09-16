@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>LOOM Visualizer</title>
+<link rel="stylesheet" href="assets/site.css"/>
+<script src="https://cdn.jsdelivr.net/npm/d3@7/dist/d3.min.js"></script>
+<style>
+#viz { height: 70vh; }
+.controls { display:flex; gap:.5rem; flex-wrap:wrap; margin: .5rem 0; }
+.controls input, .controls select, .controls button { padding:.4rem .6rem; border-radius:8px; border:1px solid rgba(147,51,234,.3); background:rgba(30,27,75,.5); color:#E0E0E0 }
+</style>
+</head>
+<body>
+<header>
+  <nav class="nav">
+    <div style="display:flex;align-items:center;gap:.75rem">
+      <img src="../IMG_0326.jpg" alt="LOOM" style="width:36px;height:36px;border-radius:8px"/>
+      <strong>LOOM</strong>
+    </div>
+    <div>
+      <a href="index.html">Home</a>
+      <a href="theory.html">Theory</a>
+      <a href="operators.html">Operators</a>
+      <a href="architecture.html">Architecture</a>
+      <a href="viz.html">Visualizer</a>
+      <a href="https://github.com/jaysalomon/LOOM/wiki" target="_blank">Wiki</a>
+    </div>
+  </nav>
+</header>
+<main>
+  <section class="hero">
+    <h1>Interactive Topology</h1>
+    <p>Create nodes and connect them with LOOM operators.</p>
+  </section>
+
+  <section class="card">
+    <div class="controls">
+      <input id="nodeName" placeholder="node name"/>
+      <button onclick="addNode()">Add Node</button>
+      <select id="op">
+        <option value="bi">&lt;~&gt; (bidirectional)</option>
+        <option value="uni">~&gt; (unidirectional)</option>
+      </select>
+      <input id="from" placeholder="from"/>
+      <input id="to" placeholder="to"/>
+      <button onclick="addEdge()">Connect</button>
+      <button onclick="random()">Random</button>
+      <button onclick="resetViz()">Reset</button>
+    </div>
+    <svg id="viz" width="100%"></svg>
+  </section>
+</main>
+<footer>
+  <p>&copy; <span id="year"></span> LOOM Project • MIT License</p>
+</footer>
+<script>
+const svg = d3.select('#viz');
+const width = document.getElementById('viz').clientWidth;
+const height = document.getElementById('viz').clientHeight;
+
+let nodes = [];
+let links = [];
+
+const color = d3.scaleOrdinal(d3.schemeTableau10);
+
+const sim = d3.forceSimulation(nodes)
+  .force('link', d3.forceLink(links).id(d=>d.id).distance(80).strength(.2))
+  .force('charge', d3.forceManyBody().strength(-220))
+  .force('center', d3.forceCenter(width/2, height/2))
+  .force('collision', d3.forceCollide(28));
+
+const g = svg.append('g');
+svg.call(d3.zoom().on('zoom', (e)=> { g.attr('transform', e.transform); }));
+
+let link = g.append('g').attr('stroke','#888').attr('stroke-opacity',.6).selectAll('line');
+let node = g.append('g').attr('stroke','#fff').attr('stroke-width',1.5).selectAll('g');
+
+function update(){
+  link = link.data(links);
+  link.exit().remove();
+  link = link.enter().append('line').attr('marker-end', d => d.type==='uni' ? 'url(#arrow)' : null).merge(link);
+
+  node = node.data(nodes, d=>d.id);
+  node.exit().remove();
+  const nodeEnter = node.enter().append('g').call(drag(sim));
+  nodeEnter.append('circle').attr('r', 14).attr('fill', d=>color(d.id));
+  nodeEnter.append('text').attr('x', 16).attr('y', 5).text(d=>d.id).attr('fill','#E0E0E0');
+  node = nodeEnter.merge(node);
+
+  sim.nodes(nodes).on('tick', ticked);
+  sim.force('link').links(links);
+  sim.alpha(1).restart();
+}
+
+function ticked(){
+  link.attr('x1', d=>d.source.x).attr('y1', d=>d.source.y)
+      .attr('x2', d=>d.target.x).attr('y2', d=>d.target.y);
+  node.attr('transform', d=>`translate(${d.x},${d.y})`);
+}
+
+function drag(sim){
+  function dragstarted(event, d){ if(!event.active) sim.alphaTarget(.3).restart(); d.fx = d.x; d.fy = d.y; }
+  function dragged(event, d){ d.fx = event.x; d.fy = event.y; }
+  function dragended(event, d){ if(!event.active) sim.alphaTarget(0); d.fx = null; d.fy = null; }
+  return d3.drag().on('start', dragstarted).on('drag', dragged).on('end', dragended);
+}
+
+svg.append('defs').append('marker')
+  .attr('id','arrow').attr('viewBox','0 -5 10 10').attr('refX', 15).attr('refY', 0)
+  .attr('markerWidth', 6).attr('markerHeight', 6).attr('orient','auto')
+  .append('path').attr('d','M0,-5L10,0L0,5').attr('fill','#888');
+
+function addNode(){
+  const id = document.getElementById('nodeName').value.trim();
+  if(!id) return; if(nodes.find(n=>n.id===id)) return;
+  nodes.push({id}); update();
+}
+
+function addEdge(){
+  const f = document.getElementById('from').value.trim();
+  const t = document.getElementById('to').value.trim();
+  const type = document.getElementById('op').value;
+  if(!f||!t||f===t) return;
+  if(!nodes.find(n=>n.id===f)) nodes.push({id:f});
+  if(!nodes.find(n=>n.id===t)) nodes.push({id:t});
+  links.push({source:f, target:t, type});
+  if(type==='bi') links.push({source:t, target:f, type});
+  update();
+}
+
+function random(){
+  resetViz();
+  const base = ['mind','memory','experience','novelty','emotion'];
+  base.forEach(id=>nodes.push({id}));
+  links.push({source:'experience', target:'mind', type:'uni'});
+  links.push({source:'mind', target:'memory', type:'bi'});
+  links.push({source:'novelty', target:'emotion', type:'uni'});
+  update();
+}
+
+function resetViz(){ nodes.length=0; links.length=0; update(); }
+
+window.addNode = addNode;
+window.addEdge = addEdge;
+window.random = random;
+window.resetViz = resetViz;
+</script>
+<footer>
+  <p>&copy; <span id="year"></span> LOOM Project • MIT License</p>
+</footer>
+<script src="assets/site.js"></script>
+</body>
+</html>

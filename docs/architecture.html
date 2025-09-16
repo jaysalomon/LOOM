@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>LOOM Architecture</title>
+<link rel="stylesheet" href="assets/site.css"/>
+</head>
+<body>
+<header>
+  <nav class="nav">
+    <div style="display:flex;align-items:center;gap:.75rem">
+      <img src="../IMG_0326.jpg" alt="LOOM" style="width:36px;height:36px;border-radius:8px"/>
+      <strong>LOOM</strong>
+    </div>
+    <div>
+      <a href="index.html">Home</a>
+      <a href="theory.html">Theory</a>
+      <a href="operators.html">Operators</a>
+      <a href="architecture.html">Architecture</a>
+      <a href="viz.html">Visualizer</a>
+      <a href="https://github.com/jaysalomon/LOOM/wiki" target="_blank">Wiki</a>
+    </div>
+  </nav>
+</header>
+<main>
+  <section class="hero">
+    <h1>Architecture</h1>
+    <p>From high-level language to runtime and kernel.</p>
+  </section>
+
+  <section class="card">
+    <h2>Layers</h2>
+    <ul>
+      <li><strong>Language</strong> (Rust) — parser, AST, interpreter/runtime</li>
+      <li><strong>Kernel</strong> (C/Metal/CUDA) — topology ops in unified memory</li>
+      <li><strong>ISA</strong> — minimal instruction set for low-level ops</li>
+      <li><strong>Accelerators</strong> — GPU compute (Metal now, CUDA/Cross-platform as future)</li>
+    </ul>
+  </section>
+
+  <section class="card">
+    <h2>Memory as Topology</h2>
+    <pre>
+[Nodes: 256-d vectors] --incidence--> [Hyperedges] --context--> [Lenses]
+    </pre>
+  </section>
+
+</main>
+<footer>
+  <p>&copy; <span id="year"></span> LOOM Project • MIT License</p>
+</footer>
+<script src="assets/site.js"></script>
+</body>
+</html>

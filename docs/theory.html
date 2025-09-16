@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>LOOM Theory</title>
+<link rel="stylesheet" href="assets/site.css"/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js" crossorigin="anonymous"
+  onload="renderMathInElement(document.body, {delimiters:[{left:'$$', right:'$$', display:true}, {left:'$', right:'$', display:false}]});"></script>
+</head>
+<body>
+<header>
+  <nav class="nav">
+    <div style="display:flex;align-items:center;gap:.75rem">
+      <img src="../IMG_0326.jpg" alt="LOOM" style="width:36px;height:36px;border-radius:8px"/>
+      <strong>LOOM</strong>
+    </div>
+    <div>
+      <a href="index.html">Home</a>
+      <a href="theory.html">Theory</a>
+      <a href="operators.html">Operators</a>
+      <a href="architecture.html">Architecture</a>
+      <a href="viz.html">Visualizer</a>
+      <a href="https://github.com/jaysalomon/LOOM/wiki" target="_blank">Wiki</a>
+    </div>
+  </nav>
+</header>
+<main>
+  <section class="hero">
+    <h1>Theoretical Foundations</h1>
+    <p>Key ideas from the LaTeX document, rendered with math.</p>
+  </section>
+
+  <section class="card">
+    <h2>Levi Transform</h2>
+    <p>
+      We formalize an equivalence between biological neural networks and symbolic hypergraphs via the Levi transform.
+      A (directed) hypergraph $\mathcal{H}=(V,E)$ with hyperedges $e \in E \subseteq 2^V \times 2^V$ admits a
+      bipartite Levi graph $\mathcal{L}(\mathcal{H})$ where $V$-nodes connect to $E$-nodes. Many operations on
+      $\mathcal{H}$ can be expressed as message passing on $\mathcal{L}(\mathcal{H})$.
+    </p>
+    <p>
+      For weighted structures, let $W \in \mathbb{R}^{|E|\times d}$ encode edge embeddings and $X \in \mathbb{R}^{|V|\times d}$
+      encode node embeddings in a shared latent space. Simple Hebbian-style updates can be written as
+    </p>
+    <p>$$ X' = X + \eta\, A_{VE} W, \quad W' = W + \eta\, A_{EV} X $$</p>
+    <p>where $A_{VE}$ and $A_{EV}$ are incidence matrices (from Levi), and $\eta$ is a learning rate.</p>
+  </section>
+
+  <section class="card">
+    <h2>Memory as Computation</h2>
+    <p>
+      Let $X \in \mathbb{R}^{n\times d}$ be node states embedded in a multi-lens space with lenses $\{\ell_k\}_{k=1}^m$.
+      Each lens defines a projection $P_k$ and dynamics $f_k$. Combined evolution:
+    </p>
+    <p>$$ X_{t+1} = X_t + \sum_{k=1}^m \alpha_k f_k(P_k X_t, A) $$</p>
+    <p>
+      where $A$ is the (hyper)adjacency and $\alpha_k$ are context-dependent weights.
+    </p>
+  </section>
+
+  <section class="card">
+    <h2>Sleep Consolidation</h2>
+    <p>
+      Consolidation can be modeled as a sparsity-promoting regularization on edges and a replay operator $R$ that
+      reinforces frequently co-activated patterns:
+    </p>
+    <p>$$ A' = \operatorname{soft\_thresh}(A + \lambda R(A; X), \tau). $$</p>
+  </section>
+</main>
+<footer>
+  <p>&copy; <span id="year"></span> LOOM Project • MIT License</p>
+</footer>
+<script src="assets/site.js"></script>
+</body>
+</html>

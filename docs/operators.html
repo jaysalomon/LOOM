@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>LOOM Operators</title>
+<link rel="stylesheet" href="assets/site.css"/>
+</head>
+<body>
+<header>
+  <nav class="nav">
+    <div style="display:flex;align-items:center;gap:.75rem">
+      <img src="../IMG_0326.jpg" alt="LOOM" style="width:36px;height:36px;border-radius:8px"/>
+      <strong>LOOM</strong>
+    </div>
+    <div>
+      <a href="index.html">Home</a>
+      <a href="theory.html">Theory</a>
+      <a href="operators.html">Operators</a>
+      <a href="architecture.html">Architecture</a>
+      <a href="viz.html">Visualizer</a>
+      <a href="https://github.com/jaysalomon/LOOM/wiki" target="_blank">Wiki</a>
+    </div>
+  </nav>
+</header>
+<main>
+  <section class="hero">
+    <h1>Language Operators</h1>
+    <p>Core syntax for topology, evolution, and multi-lens processing.</p>
+  </section>
+
+  <section class="grid">
+    <div class="card">
+      <h3>Connections</h3>
+      <pre>
+&lt;~&gt;   bidirectional connection
+~&gt;    unidirectional connection
+&lt;=&gt;   equivalence
+{a,b,c} ~&gt; relation   hyperedge
+      </pre>
+    </div>
+
+    <div class="card">
+      <h3>Weaving</h3>
+      <pre>
+weave node_name {
+  &lt;~&gt; memory: 0.6
+  ~&gt;  stories: 0.9
+}
+      </pre>
+    </div>
+
+    <div class="card">
+      <h3>Evolution</h3>
+      <pre>
+evolve curiosity_driven {
+  when: @curiosity &gt; 0.7,
+  transform: known ~&gt; unknown,
+  rate: @curiosity * learning_rate
+}
+      </pre>
+    </div>
+
+    <div class="card">
+      <h3>Multi-Lens</h3>
+      <pre>
+¥ emotional ¥   lens annotations
+€ logical €      parallel interpretations
+µ temporal µ     temporal lens
+      </pre>
+    </div>
+  </section>
+</main>
+<footer>
+  <p>&copy; <span id="year"></span> LOOM Project • MIT License</p>
+</footer>
+<script src="assets/site.js"></script>
+</body>
+</html>
