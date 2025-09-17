@@ -57,3 +57,6 @@ desktop.ini
 # Local config
 *.local
 .env
+
+# Outreach campaign materials (private)
+outreach/
