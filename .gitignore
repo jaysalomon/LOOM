@@ -14,6 +14,8 @@ target/
 *.dll
 *.exe
 *.pdb
+*.elf
+*.map
 
 # LaTeX build files
 *.aux
@@ -33,6 +35,15 @@ __pycache__/
 dist/
 build/
 
+# CMake
+CMakeCache.txt
+CMakeFiles/
+cmake-build-*/
+cmake_install.cmake
+install_manifest.txt
+Makefile
+_deps/
+
 # Rust
 Cargo.lock
 debug/
@@ -43,6 +54,10 @@ release/
 *.bak
 *.backup
 .cache/
+.ipynb_checkpoints/
+.coverage
+coverage/
+htmlcov/
 
 # OS files
 Thumbs.db
@@ -53,6 +68,7 @@ desktop.ini
 
 # Keep the deprecated docs hidden (for now)
 .deprecated_docs/
+_wiki_seed_tmp/
 
 # Local config
 *.local
@@ -63,3 +79,29 @@ outreach/
 
 # PRELOOM research papers (private - foundational research)
 PRELOOM/
+
+# Arduino / PlatformIO
+.arduino*/
+.arduinoIDE/
+.pio/
+.piolibdeps/
+
+# Jekyll site (website/)
+_site/
+.jekyll-cache/
+.jekyll-metadata
+.sass-cache/
+website/_site/
+
+# Visual Studio
+.vs/
+
+# ESP32 / esptool artifacts
+flash_dump*.bin
+
+# Old ESP32 Arduino sketches (use firmware/esp32 instead)
+kernel/esp32/arduino_project/
+kernel/esp32/*.ino
+kernel/esp32/ESP32_LOOM_Complete/
+kernel/esp32/ESP32_LOOM_Visual_Math/
+kernel/esp32/*.loom

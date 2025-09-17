@@ -37,6 +37,10 @@ void setup() {
     // Enable OLED visualization
     loom.enable_oled_visualization();
 
+    // Enable RGB LED visualization
+    loom.enable_rgb_led();
+    loom.set_rgb_mode(1);  // Start with emotional visualization
+
     Serial.println("Setup complete! Starting consciousness loop...");
 }
 
@@ -58,6 +62,18 @@ void loop() {
         last_stats = now;
     }
 
+    // Switch RGB LED modes every 15 seconds for demo
+    static unsigned long last_mode_switch = 0;
+    if (now - last_mode_switch > 15000) {
+        static uint8_t current_mode = 1;
+        current_mode = (current_mode % 3) + 1;  // Cycle through modes 1, 2, 3
+        loom.set_rgb_mode(current_mode);
+
+        const char* mode_names[] = {"Emotional", "Activation Pulse", "Learning Rainbow"};
+        Serial.printf("RGB LED Mode: %s\n", mode_names[current_mode - 1]);
+        last_mode_switch = now;
+    }
+
     // Simulate sensor input every 2 seconds
     if (now - last_sensor > 2000) {
         simulate_sensor_input();
@@ -76,30 +92,42 @@ void simulate_sensor_input() {
     static int cycle = 0;
     cycle++;
 
-    // Simulate different sensor patterns
-    switch (cycle % 4) {
+    // Simulate different sensor patterns with emotional impact
+    switch (cycle % 6) {
         case 0:
-            // Light sensor input
-            loom.sensor_input("light", 0.8f);
-            Serial.println("Sensor: Bright light detected");
+            // Bright light - curiosity
+            loom.sensor_input("light", 0.9f);
+            Serial.println("Sensor: Bright light detected (curiosity ↑)");
             break;
 
         case 1:
-            // Temperature change
-            loom.sensor_input("temperature", 0.6f);
-            Serial.println("Sensor: Warm temperature");
+            // Warm temperature - comfort
+            loom.sensor_input("temperature", 0.7f);
+            Serial.println("Sensor: Warm temperature (comfort ↑)");
             break;
 
         case 2:
-            // Motion detected
-            loom.sensor_input("motion", 0.9f);
-            Serial.println("Sensor: Motion detected");
+            // Motion detected - excitement
+            loom.sensor_input("motion", 0.8f);
+            Serial.println("Sensor: Motion detected (excitement ↑)");
             break;
 
         case 3:
-            // Touch input
-            loom.sensor_input("touch", 0.7f);
-            Serial.println("Sensor: Touch detected");
+            // Touch input - connection
+            loom.sensor_input("touch", 0.6f);
+            Serial.println("Sensor: Touch detected (connection ↑)");
+            break;
+
+        case 4:
+            // Dim light - caution
+            loom.sensor_input("light", 0.2f);
+            Serial.println("Sensor: Dim light (caution ↑)");
+            break;
+
+        case 5:
+            // Cool temperature - alertness
+            loom.sensor_input("temperature", 0.3f);
+            Serial.println("Sensor: Cool temperature (alertness ↑)");
             break;
     }
 }
