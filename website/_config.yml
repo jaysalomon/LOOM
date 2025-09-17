@@ -10,6 +10,9 @@ highlighter: rouge
 kramdown:
   math_engine: mathjax
   syntax_highlighter: rouge
+  input: GFM
+  auto_ids: true
+  toc_levels: 2..6
 
 plugins:
   - jekyll-feed
@@ -21,26 +24,30 @@ exclude:
   - Gemfile.lock
   - vendor/
   - .bundle/
-
-include:
-  - _pages
+  - README.md
 
 collections:
   theory:
     output: true
     permalink: /theory/:name/
-  docs:
+  wiki:
     output: true
-    permalink: /docs/:name/
+    permalink: /wiki/:name/
 
 defaults:
   - scope:
-      path: "docs"
+      path: ""
+      type: "theory"
     values:
-      layout: page
-      category: docs
+      layout: "theory"
+      category: theory
   - scope:
-      path: "wiki"
+      path: ""
+      type: "wiki"
     values:
-      layout: page
+      layout: "docs"
       category: wiki
+  - scope:
+      path: ""
+    values:
+      layout: "default"

@@ -1,0 +1,33 @@
+<footer class="site-footer">
+    <div class="footer-container">
+        <div class="footer-section">
+            <h3>LOOM</h3>
+            <p>{{ site.description }}</p>
+            <p class="motto">"Consciousness isn't programmed—it grows."</p>
+        </div>
+
+        <div class="footer-section">
+            <h4>Quick Links</h4>
+            <ul>
+                <li><a href="{{ '/wiki/getting-started' | relative_url }}">Getting Started</a></li>
+                <li><a href="{{ '/wiki/implementation-status' | relative_url }}">Implementation Status</a></li>
+                <li><a href="{{ '/wiki/priority-tasks' | relative_url }}">Contribute</a></li>
+                <li><a href="{{ '/wiki/faq' | relative_url }}">FAQ</a></li>
+            </ul>
+        </div>
+
+        <div class="footer-section">
+            <h4>Resources</h4>
+            <ul>
+                <li><a href="https://github.com/{{ site.repository }}">GitHub</a></li>
+                <li><a href="https://github.com/{{ site.repository }}/issues">Issues</a></li>
+                <li><a href="https://github.com/{{ site.repository }}/discussions">Discussions</a></li>
+                <li><a href="{{ '/feed.xml' | relative_url }}">RSS Feed</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="footer-bottom">
+        <p>&copy; {{ 'now' | date: '%Y' }} LOOM Project. MIT License.</p>
+    </div>
+</footer>

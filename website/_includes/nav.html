@@ -1,0 +1,38 @@
+<nav class="main-nav">
+    <div class="nav-container">
+        <a href="{{ '/' | relative_url }}" class="logo">
+            <span class="logo-text">LOOM 🧬</span>
+        </a>
+
+        <ul class="nav-menu">
+            <li><a href="{{ '/' | relative_url }}">Home</a></li>
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle">Theory</a>
+                <ul class="dropdown-menu">
+                    {% for theory in site.theory %}
+                    <li><a href="{{ theory.url | relative_url }}">{{ theory.title }}</a></li>
+                    {% endfor %}
+                </ul>
+            </li>
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle">Documentation</a>
+                <ul class="dropdown-menu">
+                    {% assign wiki_sorted = site.wiki | sort: 'title' %}
+                    {% for doc in wiki_sorted limit:8 %}
+                    <li><a href="{{ doc.url | relative_url }}">{{ doc.title }}</a></li>
+                    {% endfor %}
+                    <li class="divider"></li>
+                    <li><a href="{{ '/wiki/' | relative_url }}">All Docs →</a></li>
+                </ul>
+            </li>
+            <li><a href="{{ '/playground' | relative_url }}">Playground</a></li>
+            <li><a href="https://github.com/{{ site.repository }}" target="_blank">GitHub</a></li>
+        </ul>
+
+        <button class="nav-toggle" aria-label="Toggle navigation">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </div>
+</nav>

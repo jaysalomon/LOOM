@@ -1,168 +1,29 @@
 ---
 layout: default
 ---
-
-<div class="docs-container">
-  <nav class="docs-sidebar">
-    <div class="docs-nav">
-      <h3>Documentation</h3>
-      <ul>
-        <li><a href="{{ site.baseurl }}/docs/">Overview</a></li>
-        <li><a href="{{ site.baseurl }}/docs/theory/">Theory</a></li>
-        <li><a href="{{ site.baseurl }}/examples/">Examples</a></li>
-        <li><a href="{{ site.baseurl }}/wiki/">Wiki</a></li>
-      </ul>
-    </div>
-  </nav>
-
-  <main class="docs-content">
-    <article class="markdown-content">
-      <header class="page-header">
-        <h1>{{ page.title | default: page.name }}</h1>
+<article class="docs-page">
+    <header class="page-header">
+        <h1>{{ page.title }}</h1>
         {% if page.description %}
-        <p class="page-description">{{ page.description }}</p>
+        <p class="description">{{ page.description }}</p>
         {% endif %}
-      </header>
+    </header>
 
-      <div class="content">
-        {{ content }}
-      </div>
+    <div class="content-wrapper">
+        <aside class="docs-sidebar">
+            <h3>Documentation</h3>
+            <ul class="docs-menu">
+                {% assign wiki_pages = site.wiki | sort: 'order' %}
+                {% for doc in wiki_pages %}
+                    <li{% if doc.url == page.url %} class="active"{% endif %}>
+                        <a href="{{ doc.url | relative_url }}">{{ doc.title }}</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </aside>
 
-      <footer class="page-footer">
-        <div class="edit-link">
-          <a href="https://github.com/{{ site.repository }}/edit/main/{{ page.path }}" target="_blank">
-            Edit this page on GitHub
-          </a>
+        <div class="content">
+            {{ content }}
         </div>
-      </footer>
-    </article>
-  </main>
-</div>
-
-<style>
-.docs-container {
-  display: flex;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 2rem;
-}
-
-.docs-sidebar {
-  width: 250px;
-  flex-shrink: 0;
-  margin-right: 2rem;
-}
-
-.docs-nav h3 {
-  color: var(--accent);
-  margin-bottom: 1rem;
-  font-size: 1.2rem;
-}
-
-.docs-nav ul {
-  list-style: none;
-  padding: 0;
-}
-
-.docs-nav li {
-  margin-bottom: 0.5rem;
-}
-
-.docs-nav a {
-  color: #A0A0B0;
-  text-decoration: none;
-  padding: 0.5rem;
-  display: block;
-  border-radius: 5px;
-  transition: all 0.3s ease;
-}
-
-.docs-nav a:hover {
-  background: rgba(147,51,234,0.1);
-  color: var(--accent);
-}
-
-.docs-content {
-  flex: 1;
-  min-width: 0;
-}
-
-.page-header {
-  margin-bottom: 2rem;
-  padding-bottom: 1rem;
-  border-bottom: 1px solid rgba(255,255,255,0.1);
-}
-
-.page-header h1 {
-  color: var(--accent);
-  margin-bottom: 0.5rem;
-}
-
-.page-description {
-  color: #A0A0B0;
-  font-size: 1.1rem;
-}
-
-.content {
-  line-height: 1.7;
-}
-
-.content h1, .content h2, .content h3 {
-  color: var(--accent);
-  margin-top: 2rem;
-  margin-bottom: 1rem;
-}
-
-.content pre {
-  background: rgba(30,27,75,0.5);
-  border: 1px solid rgba(147,51,234,0.3);
-  border-radius: 10px;
-  padding: 1rem;
-  overflow-x: auto;
-  margin: 1rem 0;
-}
-
-.content code {
-  background: rgba(147,51,234,0.2);
-  padding: 0.2rem 0.4rem;
-  border-radius: 3px;
-  font-family: 'Monaco', monospace;
-}
-
-.content blockquote {
-  border-left: 4px solid var(--accent);
-  padding-left: 1rem;
-  margin: 1rem 0;
-  color: #A0A0B0;
-}
-
-.page-footer {
-  margin-top: 3rem;
-  padding-top: 2rem;
-  border-top: 1px solid rgba(255,255,255,0.1);
-  text-align: center;
-}
-
-.edit-link a {
-  color: #A0A0B0;
-  text-decoration: none;
-  font-size: 0.9rem;
-}
-
-.edit-link a:hover {
-  color: var(--accent);
-}
-
-@media (max-width: 768px) {
-  .docs-container {
-    flex-direction: column;
-    padding: 1rem;
-  }
-
-  .docs-sidebar {
-    width: 100%;
-    margin-right: 0;
-    margin-bottom: 2rem;
-  }
-}
-</style>
+    </div>
+</article>

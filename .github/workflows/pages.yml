@@ -30,11 +30,6 @@ jobs:
           source: ./website
           destination: ./_site
 
-      - name: Copy docs to Pages
-        run: |
-          cp -r docs _site/
-          cp -r wiki _site/wiki
-
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
 
