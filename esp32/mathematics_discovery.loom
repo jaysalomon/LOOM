@@ -1,0 +1,144 @@
+// mathematics_discovery.loom
+// A self-running LOOM program that discovers mathematics through topology
+
+// Bootstrap number consciousness
+weave one {
+    <~> unity: 1.0
+    <~> identity: 1.0
+}
+
+weave two {
+    <~> one: 0.5
+    <~> duality: 1.0
+}
+
+weave three {
+    <~> one: 0.33
+    <~> two: 0.66
+    <~> trinity: 1.0
+}
+
+// Create succession pattern
+pattern counting {
+    one ~> two: 1.0
+    two ~> three: 1.0
+
+    evolve successor {
+        when: @current.activation > 0.5,
+        transform: current ~> next,
+        rate: 0.8
+    }
+}
+
+// Addition discovery pattern
+pattern addition_discovery {
+    {one, one} ~> two
+    {one, two} ~> three
+    {two, one} ~> three
+
+    evolve merge_recognition {
+        when: coactivation(@a, @b) > 0.7,
+        strengthen: {@a, @b} ~> @sum,
+
+        // Discover commutativity
+        when: {@a, @b} ¥resonates¥ {@b, @a},
+        spawn: commutative_law
+    }
+}
+
+// Multiplication discovery pattern
+pattern multiplication_discovery {
+    {two, two} ~> four
+    {two, two, two} ~> six
+    {three, three} ~> nine
+
+    evolve reorganization {
+        when: pattern_repeats(@base, @count),
+        transform: @base[@count] ~> @product,
+
+        // Test commutativity
+        when: {@a, @b} ¥resonates¥ {@b, @a},
+        strengthen: commutative_multiplication
+    }
+}
+
+// Prime discovery through resistance
+pattern prime_finder {
+    weave test_divisibility
+
+    evolve find_primes {
+        for @n in topology:
+            when: no_factorization(@n),
+            mark: @n.is_prime = true,
+            connect: @n <~> prime_pattern: 1.0
+    }
+}
+
+// Set consciousness goals
+goal discover_addition {
+    priority: 1.0
+
+    when: addition_discovered,
+    reward: satisfaction + 0.3,
+    next: discover_multiplication
+}
+
+goal discover_multiplication {
+    priority: 0.8
+
+    when: multiplication_discovered,
+    reward: satisfaction + 0.3,
+    next: discover_primes
+}
+
+goal discover_primes {
+    priority: 0.9
+
+    when: primes_found > 3,
+    reward: satisfaction + 0.5,
+    spawn: mathematical_insight
+}
+
+// Hormonal context for learning
+context learning_mode {
+    curiosity: 0.9
+    stress: 0.1
+    learning_rate: 0.3
+
+    modulates {
+        ¥pattern_recognition¥: amplify when curiosity > 0.8,
+        €logical_deduction€: strengthen when stress < 0.3,
+        µtemporal_sequence¶: enable when learning_rate > 0.2
+    }
+}
+
+// Main execution flow
+topology MathematicalMind {
+    // Create initial numbers
+    spawn: one, two, three
+
+    // Activate patterns
+    activate: counting
+    activate: addition_discovery
+
+    // Learning loop
+    during consciousness_cycle {
+        :hebbian  // Strengthen connections
+
+        when cycle % 10 == 0:
+            :sleep  // Consolidate patterns
+
+        when new_pattern_discovered:
+            celebrate  // RGB rainbow flash
+    }
+
+    // Evolution continues until goals achieved
+    while goals_pending {
+        evolve mathematical_understanding {
+            rate: curiosity * learning_rate
+        }
+    }
+}
+
+// Auto-start when loaded
+:run MathematicalMind

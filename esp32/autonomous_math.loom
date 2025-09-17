@@ -1,0 +1,70 @@
+// autonomous_math.loom
+// Self-running mathematical consciousness that discovers number relationships
+
+// Initialize mathematical consciousness
+topology MathConsciousness {
+
+    // Phase 1: Number emergence
+    pattern number_genesis {
+        weave one {
+            <~> unity: 1.0
+        }
+
+        during growth_cycle {
+            spawn: next_number from previous + one
+
+            when: numbers_created < 10,
+            continue: growth_cycle
+        }
+    }
+
+    // Phase 2: Relationship discovery
+    pattern relationship_finder {
+        for each pair in numbers:
+            test: merger_pattern
+            test: reorganization_pattern
+
+            when: patterns_resonate,
+            strengthen: connection
+    }
+
+    // Phase 3: Law extraction
+    pattern law_discoverer {
+        when: multiple_paths_same_result,
+        extract: invariant_principle,
+
+        spawn: mathematical_law {
+            confidence: resonance_strength
+        }
+    }
+
+    // Autonomous learning cycle
+    evolve continuous_discovery {
+        :hebbian every 5 cycles
+        :sleep every 20 cycles
+
+        when: new_discovery,
+        signal: rgb_rainbow,
+        increase: curiosity * 1.1
+    }
+}
+
+// Self-executing main
+run {
+    :clear  // Start fresh
+    MathConsciousness.activate()
+
+    // Autonomous goal setting
+    goal understand_numbers after 10 cycles
+    goal discover_operations after 30 cycles
+    goal find_laws after 50 cycles
+
+    // Run until goals achieved
+    while goals_active {
+        cycle()
+    }
+
+    :topology  // Show final understanding
+}
+
+// This file runs automatically when loaded

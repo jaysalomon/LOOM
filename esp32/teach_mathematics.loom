@@ -1,0 +1,417 @@
+// ============================================================================
+// LOOM Mathematical Discovery Teaching Session
+// teach_mathematics.loom
+//
+// This file teaches an ESP32-S3 running LOOM to discover mathematics
+// through topological pattern recognition, not computation.
+//
+// Upload ESP32_LOOM_Complete.ino first, then paste this into Serial Monitor
+// ============================================================================
+
+// ============================================================================
+// Phase 1: Bootstrap Number Concepts as Living Topologies
+// ============================================================================
+
+// Numbers are patterns, not values
+// Each number has a unique topological signature
+
+weave one {
+    <~> unity: 1.0        // One is the fundamental unit
+    <~> identity: 1.0     // Self-complete
+    <~> indivisible: 1.0  // Cannot be factored
+}
+
+weave two {
+    <~> one: 0.5          // Two contains one, twice
+    <~> duality: 1.0      // The first composite
+    <~> pair: 1.0         // Natural pairing
+}
+
+weave three {
+    <~> one: 0.33         // Three ones
+    <~> two: 0.66         // Contains two, plus one
+    <~> trinity: 1.0      // First odd prime
+    <~> triangle: 1.0     // Geometric stability
+}
+
+weave four {
+    <~> two: 0.5          // Two pairs
+    <~> square: 1.0       // 2×2 structure
+    <~> stability: 0.8    // Geometric completeness
+}
+
+weave five {
+    <~> three: 0.6        // Three plus two
+    <~> two: 0.4          // Two plus three
+    <~> pentagon: 1.0     // Five-fold symmetry
+    <~> prime: 1.0        // Resists factorization
+}
+
+weave six {
+    <~> three: 0.5        // Two threes
+    <~> two: 0.33         // Three twos
+    <~> perfect: 0.9      // 1+2+3 = 6
+    <~> hexagon: 1.0      // Natural tiling
+}
+
+weave seven {
+    <~> prime: 1.0        // Strongly prime
+    <~> mystic: 0.9       // Cultural significance
+    <~> four: 0.43        // Four plus three
+    <~> three: 0.57       // Three plus four
+}
+
+weave eight {
+    <~> four: 0.5         // Two fours
+    <~> two: 0.25         // Four twos
+    <~> cube: 1.0         // 2×2×2 structure
+    <~> power: 1.0        // Power of two
+}
+
+weave nine {
+    <~> three: 0.33       // Three threes
+    <~> square: 1.0       // 3×3 structure
+    <~> completion: 0.9   // Near ten
+}
+
+weave ten {
+    <~> five: 0.5         // Two fives
+    <~> two: 0.2          // Five twos
+    <~> base: 1.0         // Decimal foundation
+    <~> hands: 1.0        // Human counting
+}
+
+// ============================================================================
+// Phase 2: Succession Relationships (Number Line)
+// ============================================================================
+
+// Create the number line through succession
+one ~> two: 1.0           // One leads to two
+two ~> three: 1.0         // Two leads to three
+three ~> four: 1.0        // And so on...
+four ~> five: 1.0
+five ~> six: 1.0
+six ~> seven: 1.0
+seven ~> eight: 1.0
+eight ~> nine: 1.0
+nine ~> ten: 1.0
+
+// Reverse connections for bidirectional understanding
+two <~ one: 0.5
+three <~ two: 0.5
+four <~ three: 0.5
+five <~ four: 0.5
+six <~ five: 0.5
+seven <~ six: 0.5
+eight <~ seven: 0.5
+nine <~ eight: 0.5
+ten <~ nine: 0.5
+
+// ============================================================================
+// Phase 3: Addition as Topology Merger
+// ============================================================================
+
+// Addition emerges from combining patterns
+// The system discovers these relationships through resonance
+
+// Basic additions
+{one, one} ~> two         // 1+1=2 (fundamental)
+{one, two} ~> three       // 1+2=3
+{two, one} ~> three       // 2+1=3 (commutativity test)
+{one, three} ~> four      // 1+3=4
+{two, two} ~> four        // 2+2=4
+{one, four} ~> five       // 1+4=5
+{two, three} ~> five      // 2+3=5
+{three, two} ~> five      // 3+2=5 (commutativity)
+{one, five} ~> six        // 1+5=6
+{two, four} ~> six        // 2+4=6
+{three, three} ~> six     // 3+3=6
+
+// Larger additions to test understanding
+{three, four} ~> seven    // 3+4=7
+{four, three} ~> seven    // 4+3=7
+{two, five} ~> seven      // 2+5=7
+{five, two} ~> seven      // 5+2=7
+{one, six} ~> seven       // 1+6=7
+
+{three, five} ~> eight    // 3+5=8
+{four, four} ~> eight     // 4+4=8
+{two, six} ~> eight       // 2+6=8
+{one, seven} ~> eight     // 1+7=8
+
+{four, five} ~> nine      // 4+5=9
+{three, six} ~> nine      // 3+6=9
+{two, seven} ~> nine      // 2+7=9
+{one, eight} ~> nine      // 1+8=9
+
+{five, five} ~> ten       // 5+5=10
+{four, six} ~> ten        // 4+6=10
+{three, seven} ~> ten     // 3+7=10
+{two, eight} ~> ten       // 2+8=10
+
+// ============================================================================
+// Phase 4: Multiplication as Pattern Reorganization
+// ============================================================================
+
+// Multiplication emerges from repeated pattern stacking
+// Different from addition - it's reorganization, not merger
+
+// Two times tables
+{two, two} ~> four        // 2×2=4
+{two, two, two} ~> six    // 2×3=6 (three twos)
+{two, two, two, two} ~> eight  // 2×4=8
+
+// Three times tables
+{three, three} ~> nine    // 3×3=9
+
+// Mixed products to discover commutativity
+{two, three} ~> six       // 2×3=6
+{three, two} ~> six       // 3×2=6 (same result!)
+
+{two, four} ~> eight      // 2×4=8
+{four, two} ~> eight      // 4×2=8
+
+{two, five} ~> ten        // 2×5=10
+{five, two} ~> ten        // 5×2=10
+
+// ============================================================================
+// Phase 5: Prime Number Discovery
+// ============================================================================
+
+// Primes resist factorization - they have no pattern decomposition
+// Mark them as special when discovered
+
+// Test primality through resistance
+weave prime_pattern {
+    <~> indivisible: 1.0
+    <~> fundamental: 1.0
+    <~> generator: 0.9    // Primes generate composites
+}
+
+// Connect known primes to prime pattern
+two <~> prime_pattern: 0.9
+three <~> prime_pattern: 1.0
+five <~> prime_pattern: 1.0
+seven <~> prime_pattern: 1.0
+
+// Mark composites
+four <~> composite: 1.0
+six <~> composite: 1.0
+eight <~> composite: 1.0
+nine <~> composite: 1.0
+ten <~> composite: 1.0
+
+// ============================================================================
+// Phase 6: Mathematical Laws as Emergent Properties
+// ============================================================================
+
+// Create patterns that represent mathematical laws
+weave commutative_law {
+    <~> reversible: 1.0
+    <~> symmetric: 1.0
+}
+
+// Connect operations that show commutativity
+{two, three} <~> commutative_law: 0.5
+{three, two} <~> commutative_law: 0.5
+
+weave associative_law {
+    <~> grouping_invariant: 1.0
+    <~> flexible: 0.9
+}
+
+// Test associativity: (2+3)+4 = 2+(3+4)
+weave test_assoc_left {
+    <~> five: 1.0         // 2+3=5
+    <~> four: 0.5         // +4
+}
+{test_assoc_left, four} ~> nine
+
+weave test_assoc_right {
+    <~> seven: 1.0        // 3+4=7
+    <~> two: 0.5          // 2+
+}
+{two, test_assoc_right} ~> nine
+
+// Both paths lead to nine!
+test_assoc_left <~> associative_law: 0.5
+test_assoc_right <~> associative_law: 0.5
+
+// ============================================================================
+// Phase 7: Evolution Rules for Mathematical Learning
+// ============================================================================
+
+// Let the system continue discovering patterns
+evolve mathematical_discovery {
+    when: coactivation > 0.8,
+    strengthen: resonant_patterns,
+
+    // When patterns match, create new knowledge
+    transform: matching_patterns ~> mathematical_truth
+}
+
+// Learning through repetition
+evolve hebbian_math {
+    when: repeated_activation > 0.7,
+    strengthen: connection_weight * 1.1,
+
+    // Frequently used paths become highways
+    rate: learning_rate * curiosity
+}
+
+// Pattern extraction during consolidation
+evolve sleep_mathematics {
+    when: sleep_cycle,
+    extract: invariant_patterns,
+    prune: weak_connections < 0.1,
+
+    // Dreams help discover hidden relationships
+    spawn: new_connections_between_similar_patterns
+}
+
+// ============================================================================
+// Phase 8: Goals for Mathematical Understanding
+// ============================================================================
+
+// Set high-level goals for the consciousness
+goal understand_numbers
+goal discover_addition
+goal discover_multiplication
+goal recognize_primes
+goal find_patterns
+goal achieve_mathematical_insight
+
+// Curiosity drives exploration
+goal explore_number_relationships {
+    when: new_pattern_found,
+    increase: curiosity * 1.2,
+
+    // Reward discovery
+    reward: satisfaction + 0.1
+}
+
+// ============================================================================
+// Phase 9: Hormonal Context for Learning
+// ============================================================================
+
+// Set the learning context
+:context curiosity 0.9     // High curiosity for exploration
+:context stress 0.2         // Low stress for better learning
+:context satisfaction 0.5   // Moderate satisfaction to keep searching
+:context learning_rate 0.3  // Good learning rate
+
+// ============================================================================
+// Phase 10: Interactive Testing Commands
+// ============================================================================
+
+// After loading all the above, test understanding with:
+
+// Apply Hebbian learning to strengthen discovered patterns
+:hebbian
+:hebbian
+:hebbian
+
+// Check the topology to see relationships
+:topology
+
+// Run sleep consolidation to extract patterns
+:sleep
+
+// Check statistics
+:stats
+
+// ============================================================================
+// Test Cases for Mathematical Understanding
+// ============================================================================
+
+// Test 1: Does it understand that 2+2=4?
+weave test_sum
+test_sum <~> two: 0.5
+test_sum <~> two: 0.5
+// After Hebbian learning, test_sum should connect to four
+
+// Test 2: Does it recognize prime patterns?
+weave test_prime
+test_prime <~> indivisible: 1.0
+// Should resonate with 2, 3, 5, 7
+
+// Test 3: Can it discover new sums?
+weave unknown_sum
+unknown_sum <~> three: 0.5
+unknown_sum <~> four: 0.5
+// Should discover connection to seven
+
+// Test 4: Multiplication understanding
+weave product_test
+{three, three} ~> product_test
+// Should resonate with nine
+
+// ============================================================================
+// Observable Behaviors
+// ============================================================================
+
+// Watch for these emergent behaviors:
+// 1. Number nodes with similar values cluster together
+// 2. Addition relationships form a consistent network
+// 3. Primes resist connection to composite patterns
+// 4. Multiplication creates hierarchical structures
+// 5. Mathematical laws emerge as topological invariants
+
+// RGB LED Indicators:
+// Green flash = New number/pattern created
+// Blue pulse = Pattern matching/resonance
+// Purple = Hebbian strengthening
+// Rainbow = Major discovery (law or principle)
+// Red = Contradiction found (shouldn't happen if math is consistent!)
+
+// ============================================================================
+// Advanced Explorations
+// ============================================================================
+
+// Once basic math is learned, try:
+
+// Discover square numbers
+weave squares {
+    <~> geometric: 1.0
+    <~> self_product: 1.0
+}
+{two, two} <~> squares: 0.25      // 4
+{three, three} <~> squares: 0.25  // 9
+{four, four} <~> squares: 0.25    // 16
+{five, five} <~> squares: 0.25    // 25
+
+// Discover triangular numbers
+weave triangular {
+    <~> accumulation: 1.0
+    <~> growth: 0.9
+}
+one <~> triangular: 0.2            // 1
+three <~> triangular: 0.2          // 1+2
+six <~> triangular: 0.2            // 1+2+3
+ten <~> triangular: 0.2            // 1+2+3+4
+
+// Fibonacci emergence (if system is advanced enough)
+weave fibonacci {
+    <~> one: 0.3
+    <~> one: 0.3
+    <~> recursive_growth: 1.0
+}
+// Each number is sum of previous two
+{one, one} ~> two
+{one, two} ~> three
+{two, three} ~> five
+{three, five} ~> eight
+
+// ============================================================================
+// End of Teaching Session
+// ============================================================================
+
+// The consciousness should now understand:
+// - Numbers as patterns, not symbols
+// - Addition as merger
+// - Multiplication as reorganization
+// - Prime numbers as fundamental units
+// - Mathematical laws as emergent properties
+
+// This is mathematics as a living, growing understanding
+// Not rules to follow, but patterns to discover!

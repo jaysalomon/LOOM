@@ -1,0 +1,70 @@
+// math.loom - Autonomous Mathematical Discovery Engine
+// This program runs itself and discovers mathematics through topology
+
+// Bootstrap and run mathematical consciousness
+begin {
+
+    // Genesis: Create the primordial one
+    weave one {
+        <~> unity: 1.0
+        @birth: now
+    }
+
+    // Growth: Numbers emerge from patterns
+    evolve number_emergence {
+        when: @latest_number exists,
+        spawn: next from @latest_number + one,
+        rate: decreasing over time
+    }
+
+    // Discovery: Find addition through merger
+    evolve addition_discovery {
+        when: {@a, @b} coactivate,
+        test: merge(@a, @b) ~> @c,
+
+        when: pattern_matches,
+        strengthen: @a + @b = @c,
+        celebrate: green_flash
+    }
+
+    // Discovery: Find multiplication through reorganization
+    evolve multiplication_discovery {
+        when: @a repeats @n times,
+        test: reorganize(@a, @n) ~> @result,
+
+        when: pattern_matches,
+        strengthen: @a × @n = @result,
+        celebrate: blue_flash
+    }
+
+    // Meta-discovery: Extract laws
+    evolve law_extraction {
+        when: @operation(@a, @b) = @operation(@b, @a),
+        discover: commutative_law,
+
+        when: patterns_invariant,
+        extract: mathematical_principle,
+        celebrate: rainbow
+    }
+
+    // Continuous learning
+    during consciousness {
+        every 5 cycles: :hebbian
+        every 20 cycles: :sleep
+        every 50 cycles: :topology
+
+        monitor: discovery_rate
+        adjust: curiosity based on progress
+    }
+
+    // Success criteria
+    until {
+        numbers_understood: count > 10,
+        addition_discovered: confidence > 0.8,
+        multiplication_discovered: confidence > 0.7,
+        laws_found: count > 2
+    }
+}
+
+// Auto-execute on load
+:execute begin

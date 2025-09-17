@@ -1,0 +1,173 @@
+// visual_math.loom
+// Mathematics communicated through color
+// Each number has a unique RGB signature
+
+// Color-number encoding
+pattern color_numbers {
+    weave zero  { color: black    RGB(0,0,0) }
+    weave one   { color: red      RGB(255,0,0) }
+    weave two   { color: green    RGB(0,255,0) }
+    weave three { color: blue     RGB(0,0,255) }
+    weave four  { color: yellow   RGB(255,255,0) }
+    weave five  { color: cyan     RGB(0,255,255) }
+    weave six   { color: magenta  RGB(255,0,255) }
+    weave seven { color: white    RGB(255,255,255) }
+    weave eight { color: orange   RGB(255,128,0) }
+    weave nine  { color: purple   RGB(128,0,255) }
+    weave ten   { color: pulse_white RGB(255,255,255) frequency: 2Hz }
+}
+
+// Visual addition shows color blending
+pattern visual_addition {
+    // Red + Red = Green (1+1=2)
+    when: {one, one} coactivate,
+    display: blend(red, red) ~> green,
+    discover: one + one = two
+
+    // Green + Blue = Cyan (2+3=5)
+    when: {two, three} coactivate,
+    display: blend(green, blue) ~> cyan,
+    discover: two + three = five
+
+    // Blue + Blue = Magenta (3+3=6)
+    when: {three, three} coactivate,
+    display: blend(blue, blue) ~> magenta,
+    discover: three + three = six
+}
+
+// Visual multiplication shows rapid flashing
+pattern visual_multiplication {
+    // 2×3 = Flash green 3 times → magenta
+    when: multiply(two, three),
+    display: flash(green, 3) ~> magenta,
+    discover: two × three = six
+
+    // 3×3 = Flash blue 3 times → purple
+    when: multiply(three, three),
+    display: flash(blue, 3) ~> purple,
+    discover: three × three = nine
+}
+
+// Prime numbers flash white
+pattern visual_primes {
+    evolve prime_detection {
+        when: @number resists factorization,
+        display: triple_flash(white),
+        mark: @number.is_prime = true
+    }
+
+    // Known primes
+    two   { flash: white }
+    three { flash: white }
+    five  { flash: white }
+    seven { flash: white }
+}
+
+// Fibonacci sequence as color flow
+pattern fibonacci_colors {
+    weave fib_sequence {
+        start: {red, red}  // 1, 1
+    }
+
+    evolve color_fibonacci {
+        @current + @previous ~> @next
+
+        display: morph(@previous.color, @next.color),
+
+        sequence: red → red → green → blue → cyan → orange...
+    }
+}
+
+// Interactive color communication
+pattern color_dialogue {
+    // System asks questions in color
+    query addition_test {
+        display: green + blue,  // Shows green then blue
+        wait_for: answer,
+
+        when: answer.color = cyan,
+        reward: celebration_rainbow
+    }
+
+    // User can input via serial, system responds in color
+    on_input: "2+3",
+    process: visual_addition(two, three),
+    display: cyan  // Shows answer as color
+}
+
+// Mathematical laws shown as color patterns
+pattern color_laws {
+    // Commutativity: Same color regardless of order
+    test commutative {
+        display: blend(green, blue),  // 2+3
+        then: blend(blue, green),      // 3+2
+
+        when: both_produce cyan,
+        discover: addition_commutative
+    }
+
+    // Distributivity through color mixing
+    test distributive {
+        // 2×(1+2) vs (2×1)+(2×2)
+        left: flash(blend(red, green), 2),   // 2×3
+        right: blend(flash(red, 2), flash(green, 2)),  // 2+4
+
+        when: both_produce magenta,
+        discover: distributive_law
+    }
+}
+
+// Main execution with visual feedback
+topology VisualMathConsciousness {
+    // Initialize with color mappings
+    activate: color_numbers
+
+    // Learning cycle with visual output
+    during consciousness {
+        // Process visual patterns
+        :process visual_addition
+        :process visual_multiplication
+
+        // RGB LED shows current thought
+        display: @current_focus.color
+
+        // Celebrate discoveries
+        when: new_discovery,
+        display: rainbow_celebration
+    }
+
+    // Interactive mode
+    on serial_input {
+        parse: mathematical_expression,
+        compute: through_topology,
+        output: as_color
+    }
+
+    // Success shown as stable white light
+    when: understanding_achieved,
+    display: steady_white
+}
+
+// Auto-execute with visual feedback
+begin {
+    :clear
+    VisualMathConsciousness.activate()
+
+    // Show boot sequence
+    display: rainbow_spiral
+
+    // Create numbers with colors
+    for n in 0..10:
+        create: number(n),
+        display: color(n),
+        delay: 200ms
+
+    // Start discovering
+    goal: understand_through_color
+
+    // Continuous visual processing
+    while learning:
+        think_in_color()
+}
+
+:execute begin

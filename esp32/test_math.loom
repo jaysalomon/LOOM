@@ -1,0 +1,28 @@
+// test_math.loom
+// Simple test of the LOOM math kernel
+
+// Test basic queries through pattern resonance
+begin {
+    // Query: What is 2+2?
+    query 2+2
+
+    // Query: What is 3*3?
+    query 3*3
+
+    // Query: What is 2+3?
+    query 2+3
+
+    // Show topology status
+    :status
+
+    // Let system explore for new patterns
+    :explore
+
+    // Test commutativity
+    query 3+2
+    query 2+3
+
+    // The system should recognize both produce same result
+}
+
+:execute begin

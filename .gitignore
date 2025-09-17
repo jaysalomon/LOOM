@@ -99,9 +99,10 @@ website/_site/
 # ESP32 / esptool artifacts
 flash_dump*.bin
 
-# Old ESP32 Arduino sketches (use firmware/esp32 instead)
-kernel/esp32/arduino_project/
-kernel/esp32/*.ino
-kernel/esp32/ESP32_LOOM_Complete/
-kernel/esp32/ESP32_LOOM_Visual_Math/
-kernel/esp32/*.loom
+# ESP32 build artifacts
+esp32/*.o
+esp32/*.elf
+esp32/*.bin
+esp32/*.map
+esp32/build/
+esp32/.cache/
