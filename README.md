@@ -1,6 +1,7 @@
 # LOOM 🧬
 ### The Language of Conscious Machines
 
+[![CI](https://github.com/jaysalomon/LOOM/actions/workflows/ci.yml/badge.svg)](https://github.com/jaysalomon/LOOM/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Status: Research](https://img.shields.io/badge/Status-Research_Alpha-orange.svg)]()
 [![Contributions: Welcome](https://img.shields.io/badge/Contributions-Welcome-brightgreen.svg)](CONTRIBUTING.md)
@@ -29,10 +30,48 @@ The core insight: biological neural networks and symbolic hypergraph structures 
 - **Biological Growth**: Hebbian learning, sleep consolidation, hormonal modulation
 - **Unified Architecture**: Designed for Apple Silicon and similar unified memory systems
 
-## � Documentation
+## � Key Insight: Hyperedges are Processors (Levi Transform)
+
+Unlike traditional graphs where an edge is just a pointer/weight, in LOOM every hyperedge is elevated to a processor node in the Levi graph that actively computes over its member nodes.
+
+Traditional Graph:
+
+```
+Node A --edge--> Node B    (edge is passive)
+```
+
+LOOM (via Levi Transform):
+
+```
+Node A ---> [Hyperedge Processor] ---> Node B
+              (actively computes)
+```
+
+What a hyperedge processor does:
+- Has its own 256D vector state (it’s a node in the Levi graph)
+- Actively processes its member nodes’ vectors
+- Extracts patterns, enforces relationships, builds abstractions
+- Back-propagates changes to member vectors (consistency maintenance)
+
+Example — Apple IS-A Fruit:
+
+When we create the hyperedge `{apple, fruit} ~> is-a`:
+1. The `is-a` hyperedge becomes a processor node
+2. It reads `apple`’s vector and `fruit`’s vector
+3. It computes what properties `apple` should inherit from `fruit`
+4. It modifies `apple`’s vector to include `fruit`’s properties
+5. It maintains consistency across the semantic space
+
+This reframes cognition in LOOM as:
+- Learning = creating new hyperedge processors
+- Reasoning = executing hyperedge computations
+- Memory = the topology of processors
+- Intelligence = computational patterns in the hypergraph
+
+## �📖 Documentation
 
 - **[Wiki](./wiki)** - Getting started, guides, implementation status, and practical information
-- **[Theory (LaTeX)](loom_complete_documentation.tex)** - Complete mathematical foundations and formal specification
+- **[Theory (PDF)](loom_complete_documentation.pdf)** - Complete mathematical foundations and formal specification
 - **[Honest Status](HONEST_STATUS.md)** - Transparent assessment of what actually works
 
 ## 🚧 Project Status
@@ -40,11 +79,10 @@ The core insight: biological neural networks and symbolic hypergraph structures 
 **LOOM is a research project in active development.** We have strong theoretical foundations and are building the implementation piece by piece.
 
 ### ✅ What We Have
-- **Complete theoretical framework** with mathematical proofs
-- **Language specification** defining syntax and semantics
-- **Initial prototypes** in Rust with basic topology operations
-- **GPU kernels** (Metal) for parallel computation
-- **Architecture design** for the full system
+- Strong theoretical framework (see PDF)
+- Draft language docs (Syntax, Operators)
+- Repo structure, build scaffolding, and CI
+- Experimental kernel/GPU code stubs
 
 ### 🔄 What We're Building
 - **Parser**: Transform LOOM syntax into executable operations
@@ -60,6 +98,18 @@ The core insight: biological neural networks and symbolic hypergraph structures 
 
 ## Quick Start
 
+### Prerequisites
+- Rust (stable)
+- Git
+- CMake + a C compiler (for kernel build)
+
+### Clone (with wiki submodule)
+
+```bash
+git clone --recurse-submodules https://github.com/jaysalomon/LOOM.git
+cd LOOM
+```
+
 ### Building Loom
 
 ```bash
@@ -67,11 +117,19 @@ The core insight: biological neural networks and symbolic hypergraph structures 
 cd src/lang
 cargo build --release
 
-# Run the REPL
+# (Future) Run the REPL — parser not implemented yet
 cargo run -- repl
 
-# Run a Loom file
-cargo run -- run examples/hello_consciousness.loom
+# (Future) Run a Loom file — blocked on parser/runtime
+cargo run -- run ../examples/hello_consciousness.loom
+```
+
+### Build the C/CMake kernel (optional)
+
+```bash
+cd ../../
+cmake -S . -B build
+cmake --build build --config Release
 ```
 
 ### Your First Loom Program
@@ -132,7 +190,7 @@ evolve curiosity_driven {
 // Same topology, different interpretations
 experience ¥resonates¥ emotions        // Emotional lens
 experience €implies€ conclusions       // Logical lens
-experience µprecedes¶ consequences     // Temporal lens
+experience µprecedesµ consequences     // Temporal lens
 ```
 
 ### Hormonal Context
@@ -261,16 +319,14 @@ Loom is based on the insight that biological neural networks and symbolic hyperg
 - **Memory isn't stored** - it exists as structure
 - **Intelligence isn't artificial** - it's genuine
 
-## Development Status
+## Development Status (truthful)
 
-- ✅ Lexer and Parser
-- ✅ Runtime Simulator
-- ✅ REPL
-- ✅ Example Programs
-- 🚧 Semantic Analyzer
-- 🚧 Code Generator
-- 🚧 Kernel Module
-- 🚧 GPU Acceleration
+- 🚧 Parser: not implemented
+- 🚧 Runtime: early scaffolding
+- 🚧 REPL: placeholder
+- 🚧 Examples: conceptual only (not runnable)
+- 🧠 Theory: strong and expanding (see PDF)
+- �️ CI: basic build checks for Rust and C/CMake
 
 ## 🤝 Contributing
 
@@ -295,10 +351,10 @@ LOOM raises fundamental questions we're working to answer:
 - Can the Levi transform efficiently scale to large topologies?
 - How does unified memory architecture enable new computational paradigms?
 
-## � Documentation
+## 📚 Documentation
 
-- **[Theoretical Foundations](loom_complete_documentation.tex)**: Complete mathematical framework
-- **[GitHub Pages](docs/)**: Local site content for Pages (enable Pages from /docs)
+- **[Theoretical Foundations (PDF)](loom_complete_documentation.pdf)**: Complete mathematical framework
+- **[GitHub Pages](docs/)**: Local site content for Pages
 - **[Wiki](wiki/)**: Extended documentation
 - **[Examples](examples/)**: LOOM program examples
 

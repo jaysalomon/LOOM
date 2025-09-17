@@ -50,6 +50,38 @@
   </section>
 
   <section class="card">
+    <h2>Key Insight: Hyperedges Are Processors</h2>
+    <p>
+      In traditional graphs, an edge is a passive pointer/weight. In LOOM's Levi view, each hyperedge becomes a node
+      in the bipartite Levi graph that <em>actively computes</em> over its incident vertices.
+    </p>
+    <pre>
+Traditional:    Node A --edge--> Node B   (edge is passive)
+LOOM (Levi):    Node A ---> [Hyperedge Processor] ---> Node B
+                                   (actively computes)
+    </pre>
+    <p>
+      Each hyperedge carries its own embedding (e.g., 256-D) and performs message passing and constraint enforcement
+      across its member nodes, extracting patterns and building abstractions while maintaining consistency.
+    </p>
+    <h3>Example: Apple IS-A Fruit</h3>
+    <p>
+      Creating <code>{apple, fruit} ~&gt; is-a</code> promotes <code>is-a</code> to a processor node. It reads the embeddings
+      of <code>apple</code> and <code>fruit</code>, computes inherited properties, updates <code>apple</code> to include
+      fruit-like attributes, and maintains semantic consistency.
+    </p>
+    <p>
+      In matrix form (schematically), with incidence matrices from the Levi graph:
+    </p>
+    <p>$$ X' = X + \eta\, A_{VE} W,\quad W' = W + \eta\, A_{EV} X, $$
+       where updates reflect property propagation and constraint enforcement.</p>
+    <p>
+      Learning = creating new hyperedge processors. Reasoning = executing their computations. Memory = the topology of
+      these processors; intelligence = the computational patterns they instantiate.
+    </p>
+  </section>
+
+  <section class="card">
     <h2>Memory as Computation</h2>
     <p>
       Let $X \in \mathbb{R}^{n\times d}$ be node states embedded in a multi-lens space with lenses $\{\ell_k\}_{k=1}^m$.
