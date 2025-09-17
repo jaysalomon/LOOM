@@ -98,7 +98,8 @@ fn emit_c_file(path: PathBuf, out: Option<PathBuf>) {
 
 fn run_repl() {
     println!("\nStarting Loom REPL...\n");
-    let mut repl = Repl::new();
+    // Use the simple working REPL instead!
+    let mut repl = loom_lang::SimpleRepl::new();
     repl.run();
 }
 

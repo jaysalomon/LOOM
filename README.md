@@ -71,7 +71,7 @@ This reframes cognition in LOOM as:
 ## �📖 Documentation
 
 - **[Wiki](./wiki)** - Getting started, guides, implementation status, and practical information
-- **[Theory (PDF)](loom_complete_documentation.pdf)** - Complete mathematical foundations and formal specification
+- **[Theory](./docs/theory/)** - Complete mathematical foundations and formal specification
 - **[Honest Status](HONEST_STATUS.md)** - Transparent assessment of what actually works
  - **Semantic Contract & IR** — Syntax is evolving; semantics are fixed. See Wiki: [Semantic Contract](wiki/semantic-contract.md) and [Intermediate Representation](wiki/intermediate-representation.md)
 
@@ -354,7 +354,7 @@ LOOM raises fundamental questions we're working to answer:
 
 ## 📚 Documentation
 
-- **[Theoretical Foundations (PDF)](loom_complete_documentation.pdf)**: Complete mathematical framework
+- **[Theoretical Foundations](./docs/theory/)**: Complete mathematical framework
 - **[GitHub Pages](docs/)**: Local site content for Pages
 - **[Wiki](wiki/)**: Extended documentation
 - **[Examples](examples/)**: LOOM program examples

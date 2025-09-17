@@ -1,0 +1,46 @@
+title: LOOM - The Language of Conscious Machines
+description: A revolutionary programming paradigm where topology IS computation
+url: "https://jaysalomon.github.io"
+baseurl: "/LOOM"
+repository: jaysalomon/LOOM
+
+markdown: kramdown
+highlighter: rouge
+
+kramdown:
+  math_engine: mathjax
+  syntax_highlighter: rouge
+
+plugins:
+  - jekyll-feed
+  - jekyll-sitemap
+  - jekyll-seo-tag
+
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - vendor/
+  - .bundle/
+
+include:
+  - _pages
+
+collections:
+  theory:
+    output: true
+    permalink: /theory/:name/
+  docs:
+    output: true
+    permalink: /docs/:name/
+
+defaults:
+  - scope:
+      path: "docs"
+    values:
+      layout: page
+      category: docs
+  - scope:
+      path: "wiki"
+    values:
+      layout: page
+      category: wiki
